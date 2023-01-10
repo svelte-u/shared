@@ -55,5 +55,8 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"dependencies": {
+		"@p4ck493/ts-is": "^3.0.7"
 	}
 }
