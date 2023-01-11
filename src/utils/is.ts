@@ -110,3 +110,6 @@ export function is_equal<T, U>(x: T, y: U): boolean {
 	}
 	return true
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const noop = () => {}

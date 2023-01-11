@@ -82,3 +82,48 @@ export interface PartialWritable {
 		invalidate?: (value?: any) => void
 	) => () => void
 }
+
+export type FunctionArgs<Args extends any[] = any[], Return = void> = (
+	...args: Args
+) => Return
+
+export interface FunctionWrapperOptions<
+	Args extends any[] = any[],
+	This = any
+> {
+	fn: FunctionArgs<Args, This>
+	args: Args
+	this_arg: This
+}
+
+export type EventFilter<
+	Args extends any[] = any[],
+	This = any,
+	Invoke extends AnyFn = AnyFn
+> = (
+	invoke: Invoke,
+	options: FunctionWrapperOptions<Args, This>
+) => ReturnType<Invoke> | Promise<ReturnType<Invoke>>
+
+export interface ConfigurableEventFilter {
+	/**
+	 * Filter for if events should to be received.
+	 *
+	 */
+	event_filter?: EventFilter
+}
+
+export interface DebounceFilterOptions {
+	/**
+	 * The maximum time allowed to be delayed before it's invoked.
+	 * In seconds.
+	 */
+	max_wait?: number
+
+	/**
+	 * Whether to reject the last call if it's been cancel.
+	 *
+	 * @defaultValue false
+	 */
+	reject_on_cancel?: boolean
+}
