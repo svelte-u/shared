@@ -71,3 +71,14 @@ export interface Pauseable {
 	/**Resume the effects*/
 	resume: Fn
 }
+
+export interface PartialWritable {
+	/**The set function in writable stores. */
+	set: (value: any) => void
+
+	/** The subscribe function in writable stores. */
+	subscribe: (
+		run: (value: any) => void,
+		invalidate?: (value?: any) => void
+	) => () => void
+}
