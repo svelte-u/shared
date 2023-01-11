@@ -67,9 +67,9 @@ export function debounce_filter(
 	}
 
 	const filter: EventFilter = (invoke) => {
-		const duration = s * 1000
+		const duration = s
 
-		const max_duration = options.max_wait ?? 0 * 1000
+		const max_duration = options.max_wait
 
 		if (timer) _clearTimeout(timer)
 
@@ -92,7 +92,7 @@ export function debounce_filter(
 					if (timer) _clearTimeout(timer)
 					max_timer = null
 					resolve(invoke())
-				}, max_duration)
+				}, max_duration * 1000)
 			}
 
 			// Create the regular timer. Clears the max timer on invoke
@@ -100,7 +100,7 @@ export function debounce_filter(
 				if (max_timer) _clearTimeout(max_timer)
 				max_timer = null
 				resolve(invoke())
-			}, duration)
+			}, duration * 1000)
 		})
 	}
 

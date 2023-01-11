@@ -52,7 +52,18 @@ export function is_readable<T>(store: any): store is Readable<T> {
 }
 
 export function is_writable<T>(store: any): store is Writable<T> {
+	return (
+		store &&
+		["subscribe", "set", "update"].every((n) => is_function(store[n]))
+	)
+}
+
+export function is_partial_writable<T>(store: any): store is Writable<T> {
 	return store && ["subscribe", "set"].every((n) => is_function(store[n]))
+}
+
+export function is_readable_only<T>(store: any): store is Readable<T> {
+	return store && is_function(store?.subscribe) && !is_writable(store)
 }
 
 export function is_store<T>(store: any): store is MaybeStore<T> {
@@ -94,7 +105,14 @@ export function is_equal<T, U>(x: T, y: U): boolean {
 	if (x instanceof RegExp && y instanceof RegExp)
 		return x.toString() === y.toString()
 
-	if (!is_object(x) || x === null || !is_object(y) || y === null) return false
+	if (
+		typeof x !== "object" ||
+		x === null ||
+		typeof y !== "object" ||
+		y === null
+	) {
+		return false
+	}
 
 	const keys_x = Reflect.ownKeys(x as unknown as object)
 
