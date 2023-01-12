@@ -1,10 +1,11 @@
 {
-    "total": 6,
+    "total": 7,
     "packages": {
         "index": [
             "len",
             "on_destroy",
             "on_mount",
+            "sleep",
             "to_readable",
             "type",
             "utils"
