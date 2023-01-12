@@ -1,6 +1,6 @@
 {
     "name": "@sveu/shared",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "packageManager": "pnpm@7.20.0",
     "description": "Shared utilities for svelte utility libraries",
     "author": "Mohamed Nesredin<https://github.com/Mohamed-Kaizen>",
