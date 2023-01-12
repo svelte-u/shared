@@ -1,5 +1,5 @@
 {
-    "total": 8,
+    "total": 9,
     "packages": {
         "index": [
             "len",
@@ -9,6 +9,7 @@
             "to_number",
             "to_readable",
             "type",
+            "unstore",
             "utils"
         ]
     }
