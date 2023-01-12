@@ -1,5 +1,5 @@
 {
-    "total": 11,
+    "total": 12,
     "packages": {
         "index": [
             "len",
@@ -7,6 +7,7 @@
             "on_mount",
             "range",
             "sleep",
+            "slug",
             "to_number",
             "to_readable",
             "to_writable",
