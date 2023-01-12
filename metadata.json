@@ -1,5 +1,5 @@
 {
-    "total": 13,
+    "total": 14,
     "packages": {
         "index": [
             "len",
@@ -14,7 +14,8 @@
             "to_writable",
             "type",
             "unstore",
-            "utils"
+            "utils",
+            "watchable"
         ]
     }
 }
