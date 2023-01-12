@@ -1,7 +1,8 @@
 {
-    "total": 5,
+    "total": 6,
     "packages": {
         "index": [
+            "len",
             "on_destroy",
             "on_mount",
             "to_readable",
