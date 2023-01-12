@@ -1,6 +1,7 @@
 export * from "./len"
 export * from "./on_destroy"
 export * from "./on_mount"
+export * from "./range"
 export * from "./sleep"
 export * from "./to_number"
 export * from "./to_readable"
