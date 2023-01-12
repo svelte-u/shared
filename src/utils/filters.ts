@@ -1,5 +1,6 @@
 import { get, writable } from "svelte/store"
 
+import { to_readable } from "../to_readable"
 import { noop } from "./is"
 import type {
 	AnyFn,
@@ -208,5 +209,5 @@ export function pauseable_filter(
 		if (get(active)) extend_filter(...args)
 	}
 
-	return { active, pause, resume, event_filter }
+	return { active: to_readable(active), pause, resume, event_filter }
 }
