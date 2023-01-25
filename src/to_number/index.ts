@@ -1,24 +1,4 @@
-export interface ToNumberOptions {
-	/**
-	 * Method to use to convert the value to a number.
-	 *
-	 * @defaultValue 'float'
-	 */
-	method?: "float" | "int"
-
-	/**
-	 * The base in mathematical numeral systems passed to `parseInt`.
-	 * Only works with `method: 'parseInt'`
-	 */
-	radix?: number
-
-	/**
-	 * Replace NaN with zero
-	 *
-	 * @defaultValue false
-	 */
-	nan_to_zero?: boolean
-}
+import type { ToNumberOptions } from "../utils"
 
 /**
  * Convert a value to a number.

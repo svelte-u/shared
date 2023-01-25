@@ -127,3 +127,61 @@ export interface DebounceFilterOptions {
 	 */
 	reject_on_cancel?: boolean
 }
+
+export interface ToNumberOptions {
+	/**
+	 * Method to use to convert the value to a number.
+	 *
+	 * @defaultValue 'float'
+	 */
+	method?: "float" | "int"
+
+	/**
+	 * The base in mathematical numeral systems passed to `parseInt`.
+	 * Only works with `method: 'parseInt'`
+	 */
+	radix?: number
+
+	/**
+	 * Replace NaN with zero
+	 *
+	 * @defaultValue false
+	 */
+	nan_to_zero?: boolean
+}
+
+export interface SlugOptions {
+	/**
+	 * Use lower letters.
+	 *
+	 * @defaultValue true
+	 */
+	lower?: boolean
+
+	/**
+	 * Use uppercase letters.
+	 *
+	 * @defaultValue true
+	 */
+	upper?: boolean
+
+	/**
+	 * Use digits.
+	 *
+	 * @defaultValue true
+	 */
+	digits?: boolean
+
+	/**
+	 * Size of the slug.
+	 *
+	 * @defaultValue 6
+	 */
+	size?: number
+
+	/**
+	 * Text to use as a prefix.
+	 *
+	 */
+	prefix?: string
+}
