@@ -1,5 +1,5 @@
 {
-    "total": 16,
+    "total": 17,
     "packages": {
         "index": [
             "debounce",
@@ -11,6 +11,7 @@
             "sleep",
             "slug",
             "template",
+            "throttle",
             "to_number",
             "to_readable",
             "to_writable",
