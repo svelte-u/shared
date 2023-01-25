@@ -1,7 +1,8 @@
 {
-    "total": 14,
+    "total": 15,
     "packages": {
         "index": [
+            "last_changed",
             "len",
             "on_destroy",
             "on_mount",
