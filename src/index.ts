@@ -1,3 +1,4 @@
+export * from "./debounce"
 export * from "./last_changed"
 export * from "./len"
 export * from "./on_destroy"
