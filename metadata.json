@@ -1,5 +1,5 @@
 {
-    "total": 17,
+    "total": 18,
     "packages": {
         "index": [
             "debounce",
@@ -15,6 +15,7 @@
             "to_number",
             "to_readable",
             "to_writable",
+            "tryit",
             "type",
             "unstore",
             "utils",
