@@ -1,6 +1,7 @@
 export * from "./debounce"
 export * from "./last_changed"
 export * from "./len"
+export * from "./make_destructurable"
 export * from "./on_destroy"
 export * from "./on_mount"
 export * from "./range"

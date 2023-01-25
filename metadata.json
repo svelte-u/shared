@@ -1,10 +1,11 @@
 {
-    "total": 18,
+    "total": 19,
     "packages": {
         "index": [
             "debounce",
             "last_changed",
             "len",
+            "make_destructurable",
             "on_destroy",
             "on_mount",
             "range",
