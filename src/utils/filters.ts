@@ -88,7 +88,7 @@ export function debounce_filter(
 		return new Promise((resolve, reject) => {
 			last_rejector = options.reject_on_cancel ? reject : resolve
 			// Create the max_timer. Clears the regular timer on invoke
-			if (max_duration && !max_timer) {
+			if (max_duration && duration > max_duration && !max_timer) {
 				max_timer = setTimeout(() => {
 					if (timer) _clearTimeout(timer)
 					max_timer = null
