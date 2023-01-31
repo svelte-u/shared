@@ -1,3 +1,4 @@
+export * from "./adjust_with_unit"
 export * from "./debounce"
 export * from "./last_changed"
 export * from "./len"
