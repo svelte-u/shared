@@ -210,3 +210,19 @@ export interface SingletonPromiseReturn<T> {
 	 */
 	reset: () => Promise<void>
 }
+
+export interface IntervalFnOptions {
+	/**
+	 * Start the timer immediately
+	 *
+	 * @defaultValue true
+	 */
+	immediate?: boolean
+
+	/**
+	 * Execute the callback immediate after calling this function
+	 *
+	 * @defaultValue false
+	 */
+	immediate_callback?: boolean
+}
