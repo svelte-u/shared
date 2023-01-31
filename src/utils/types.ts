@@ -201,3 +201,12 @@ export interface EventHook<T = any> {
 
 	trigger: EventHookTrigger<T>
 }
+
+export interface SingletonPromiseReturn<T> {
+	(): Promise<T>
+	/**
+	 * Reset current staled promise.
+	 * await it to have proper shutdown.
+	 */
+	reset: () => Promise<void>
+}

@@ -1,5 +1,6 @@
 export * from "./adjust_with_unit"
 export * from "./create_event_hook"
+export * from "./create_singleton_promise"
 export * from "./debounce"
 export * from "./last_changed"
 export * from "./len"

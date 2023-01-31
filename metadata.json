@@ -1,9 +1,10 @@
 {
-    "total": 21,
+    "total": 22,
     "packages": {
         "index": [
             "adjust_with_unit",
             "create_event_hook",
+            "create_singleton_promise",
             "debounce",
             "last_changed",
             "len",
