@@ -226,3 +226,12 @@ export interface IntervalFnOptions {
 	 */
 	immediate_callback?: boolean
 }
+
+export interface TimeoutFnOptions {
+	/**
+	 * Start the timer immediate after calling this function
+	 *
+	 * @defaultValue true
+	 */
+	immediate?: boolean
+}

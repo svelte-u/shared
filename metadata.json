@@ -1,5 +1,5 @@
 {
-    "total": 23,
+    "total": 24,
     "packages": {
         "index": [
             "adjust_with_unit",
@@ -17,6 +17,7 @@
             "slug",
             "template",
             "throttle",
+            "timeoutfn",
             "to_number",
             "to_readable",
             "to_writable",
