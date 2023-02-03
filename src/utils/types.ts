@@ -236,6 +236,20 @@ export interface TimeoutFnOptions {
 	immediate?: boolean
 }
 
+export interface TimeoutOptions<Controls extends boolean>
+	extends TimeoutFnOptions {
+	/**
+	 * Expose more controls
+	 *
+	 * @defaultValue false
+	 */
+	controls?: Controls
+	/**
+	 * Callback on timeout
+	 */
+	callback?: Fn
+}
+
 export type ToggleFn = (value?: boolean) => void
 
 export interface DefaultTaggableReturn {
