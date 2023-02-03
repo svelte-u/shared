@@ -235,3 +235,10 @@ export interface TimeoutFnOptions {
 	 */
 	immediate?: boolean
 }
+
+export type ToggleFn = (value?: boolean) => void
+
+export interface DefaultTaggableReturn {
+	toggled: Readable<boolean>
+	toggle: ToggleFn
+}
