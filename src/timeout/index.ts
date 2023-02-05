@@ -32,7 +32,7 @@ export function timeout(
 	ready: Readable<boolean>
 } & Stoppable
 export function timeout(interval = 1, options: TimeoutOptions<boolean> = {}) {
-	const { controls: exposeControls = false, callback } = options
+	const { controls: expose_controls = false, callback } = options
 
 	let unsubscribe: Fn = noop
 
@@ -40,13 +40,11 @@ export function timeout(interval = 1, options: TimeoutOptions<boolean> = {}) {
 
 	const ready = readable(true, (set) => {
 		unsubscribe = controls.pending.subscribe((value) => set(!value))
-		console.log(unsubscribe)
-		console.log("ME")
 	})
 
 	on_destroy(unsubscribe)
 
-	if (exposeControls) {
+	if (expose_controls) {
 		return {
 			ready,
 			...controls,
