@@ -254,5 +254,27 @@ export type ToggleFn = (value?: boolean) => void
 
 export interface DefaultTaggableReturn {
 	toggled: Readable<boolean>
+
 	toggle: ToggleFn
+}
+
+export interface RTFOptions {
+	/** The locale to use.
+	 *
+	 *
+	 * @defaultValue en
+	 */
+	locale?: Intl.UnicodeBCP47LocaleIdentifier
+
+	/** The length of the internationalized message.
+	 *
+	 * @defaultValue long
+	 */
+	style?: "long" | "short" | "narrow"
+
+	/** The format of output message.
+	 *
+	 * @defaultValue auto
+	 */
+	numeric?: "always" | "auto"
 }

@@ -1,5 +1,5 @@
 {
-    "total": 26,
+    "total": 27,
     "packages": {
         "index": [
             "adjust_with_unit",
@@ -13,6 +13,7 @@
             "on_destroy",
             "on_mount",
             "range",
+            "rtf",
             "sleep",
             "slug",
             "taggable",
