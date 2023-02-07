@@ -1,5 +1,5 @@
 {
-    "total": 27,
+    "total": 28,
     "packages": {
         "index": [
             "adjust_with_unit",
@@ -16,6 +16,7 @@
             "rtf",
             "sleep",
             "slug",
+            "strftime",
             "taggable",
             "template",
             "throttle",

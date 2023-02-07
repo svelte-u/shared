@@ -278,3 +278,14 @@ export interface RTFOptions {
 	 */
 	numeric?: "always" | "auto"
 }
+
+export type DateLike = Date | number | string | undefined
+
+export interface StrftimeOptions extends Intl.DateTimeFormatOptions {
+	/**
+	 * The locale to use
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument
+	 */
+	locales?: Intl.LocalesArgument
+}
