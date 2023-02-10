@@ -289,3 +289,19 @@ export interface StrftimeOptions extends Intl.DateTimeFormatOptions {
 	 */
 	locales?: Intl.LocalesArgument
 }
+
+export type StringOrNumber = string | number
+
+export type SumAble =
+	| number[]
+	| string[]
+	| StringOrNumber[]
+	| number[][]
+	| string[][]
+	| StringOrNumber[][]
+
+export type SubtractAble = SumAble
+
+export type MultiplyAble = SumAble
+
+export type DivideAble = SumAble
