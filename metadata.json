@@ -1,5 +1,5 @@
 {
-    "total": 33,
+    "total": 34,
     "packages": {
         "curry": [
             "chain",
@@ -8,6 +8,7 @@
         ],
         "math": [
             "arithmetic",
+            "clamp",
             "random"
         ],
         "index": [
