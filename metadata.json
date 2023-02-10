@@ -1,9 +1,10 @@
 {
-    "total": 30,
+    "total": 31,
     "packages": {
         "curry": [
             "chain",
-            "compose"
+            "compose",
+            "partial"
         ],
         "index": [
             "adjust_with_unit",
