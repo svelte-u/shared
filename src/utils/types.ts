@@ -299,3 +299,12 @@ export type Sequential =
 	| number[][]
 	| string[][]
 	| StringOrNumber[][]
+
+export interface PrecisionOptions {
+	/**
+	 * Method to use for rounding
+	 *
+	 * @default 'round'
+	 */
+	math?: "floor" | "ceil" | "round"
+}
