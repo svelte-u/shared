@@ -56,47 +56,39 @@ describe("arithmetic", () => {
 	})
 
 	it("should Subtract", () => {
-		expect(subtract(1, 2)).toMatchInlineSnapshot(-1)
+		expect(subtract(1, 2)).toBe(-1)
 
-		expect(subtract("1", "2")).toMatchInlineSnapshot(-1)
+		expect(subtract("1", "2")).toBe(-1)
 
-		expect(subtract("1", 2)).toMatchInlineSnapshot(-1)
+		expect(subtract("1", 2)).toBe(-1)
 
-		expect(subtract(1, "2")).toMatchInlineSnapshot(-1)
+		expect(subtract(1, "2")).toBe(-1)
 
-		expect(subtract([1, 2, 3])).toMatchInlineSnapshot(-4)
+		expect(subtract([1, 2, 3])).toBe(-4)
 
-		expect(subtract(["1", 2, 3])).toMatchInlineSnapshot(-4)
+		expect(subtract(["1", 2, 3])).toBe(-4)
 
-		expect(subtract([1, "2", 3])).toMatchInlineSnapshot(-4)
+		expect(subtract([1, "2", 3])).toBe(-4)
 
-		expect(subtract([1, 2, "3"])).toMatchInlineSnapshot(-4)
+		expect(subtract([1, 2, "3"])).toBe(-4)
 
-		expect(subtract(["1", "2", "3"])).toMatchInlineSnapshot(-4)
+		expect(subtract(["1", "2", "3"])).toBe(-4)
 
-		expect(subtract([1, 2, 3], [4, 5, 6])).toMatchInlineSnapshot(-19)
+		expect(subtract([1, 2, 3], [4, 5, 6])).toBe(-19)
 
-		expect(subtract(["1", "2", "3"], [4, 5, 6])).toMatchInlineSnapshot(-19)
+		expect(subtract(["1", "2", "3"], [4, 5, 6])).toBe(-19)
 
-		expect(subtract(["1", "2", "3"], ["4", 5, 6])).toMatchInlineSnapshot(
-			-19
+		expect(subtract(["1", "2", "3"], ["4", 5, 6])).toBe(-19)
+
+		expect(subtract(["1", "2", "3"], ["4", "5", 6])).toBe(-19)
+
+		expect(subtract(["1", "2", "3"], ["4", "5", "6"])).toBe(-19)
+
+		expect(subtract([1, 2, 3], [4, 5, 6], [7, 8, 9])).toBe(-43)
+
+		expect(subtract([1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12])).toBe(
+			-76
 		)
-
-		expect(subtract(["1", "2", "3"], ["4", "5", 6])).toMatchInlineSnapshot(
-			-19
-		)
-
-		expect(
-			subtract(["1", "2", "3"], ["4", "5", "6"])
-		).toMatchInlineSnapshot(-19)
-
-		expect(subtract([1, 2, 3], [4, 5, 6], [7, 8, 9])).toMatchInlineSnapshot(
-			-43
-		)
-
-		expect(
-			subtract([1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12])
-		).toMatchInlineSnapshot(-57)
 
 		expect(
 			subtract(
@@ -106,7 +98,7 @@ describe("arithmetic", () => {
 				[10, 11, 12],
 				[13, 14, 15]
 			)
-		).toMatchInlineSnapshot(-90)
+		).toBe(-118)
 	})
 
 	it("should Multiply", () => {
