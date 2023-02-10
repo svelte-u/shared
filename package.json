@@ -35,6 +35,9 @@
         },
         "./curry": {
             "import": "./curry.js"
+        },
+        "./math": {
+            "import": "./math.js"
         }
     },
     "devDependencies": {

@@ -1,10 +1,13 @@
 {
-    "total": 31,
+    "total": 32,
     "packages": {
         "curry": [
             "chain",
             "compose",
             "partial"
+        ],
+        "math": [
+            "random"
         ],
         "index": [
             "adjust_with_unit",
