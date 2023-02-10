@@ -1,6 +1,9 @@
 {
-    "total": 28,
+    "total": 29,
     "packages": {
+        "curry": [
+            "chain"
+        ],
         "index": [
             "adjust_with_unit",
             "create_event_hook",

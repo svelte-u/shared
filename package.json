@@ -32,6 +32,9 @@
     "exports": {
         ".": {
             "import": "./index.js"
+        },
+        "./curry": {
+            "import": "./curry.js"
         }
     },
     "devDependencies": {
