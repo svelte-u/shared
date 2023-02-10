@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { divide, multiply, subtract, sum } from "."
+import { average, divide, max, min, multiply, subtract, sum } from "."
 
 describe("arithmetic", () => {
 	it("should be defined", () => {
@@ -8,6 +8,9 @@ describe("arithmetic", () => {
 		expect(subtract).toBeDefined()
 		expect(multiply).toBeDefined()
 		expect(divide).toBeDefined()
+		expect(average).toBeDefined()
+		expect(max).toBeDefined()
+		expect(min).toBeDefined()
 	})
 
 	it("should Sum", () => {
@@ -196,5 +199,77 @@ describe("arithmetic", () => {
 		expect(
 			divide([1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [13, 14, 15])
 		).toBe(7.647163731819817e-13)
+	})
+
+	it("should Average", () => {
+		expect(average(1, 2)).toBe(1.5)
+
+		expect(average("1", "2")).toBe(1.5)
+
+		expect(average("1", 2)).toBe(1.5)
+
+		expect(average(1, "2")).toBe(1.5)
+
+		expect(average([1, 2, 3])).toBe(2)
+
+		expect(average(["1", 2, 3])).toBe(2)
+
+		expect(average([1, "2", 3])).toBe(2)
+
+		expect(average([1, 2, "3"])).toBe(2)
+
+		expect(average(["1", "2", "3"])).toBe(2)
+
+		expect(average([1, 2, 3], [4, 5, 6])).toBe(3.5)
+
+		expect(average(["1", "2", "3"], [4, 5, 6])).toBe(3.5)
+	})
+
+	it("should Max", () => {
+		expect(max(1, 2)).toBe(2)
+
+		expect(max("1", "2")).toBe(2)
+
+		expect(max("1", 2)).toBe(2)
+
+		expect(max(1, "2")).toBe(2)
+
+		expect(max([1, 2, 3])).toBe(3)
+
+		expect(max(["1", 2, 3])).toBe(3)
+
+		expect(max([1, "2", 3])).toBe(3)
+
+		expect(max([1, 2, "3"])).toBe(3)
+
+		expect(max(["1", "2", "3"])).toBe(3)
+
+		expect(max([1, 2, 3], [4, 5, 6])).toBe(6)
+
+		expect(max(["1", "2", "3"], [4, 5, 6])).toBe(6)
+	})
+
+	it("should Min", () => {
+		expect(min(1, 2)).toBe(1)
+
+		expect(min("1", "2")).toBe(1)
+
+		expect(min("1", 2)).toBe(1)
+
+		expect(min(1, "2")).toBe(1)
+
+		expect(min([1, 2, 3])).toBe(1)
+
+		expect(min(["1", 2, 3])).toBe(1)
+
+		expect(min([1, "2", 3])).toBe(1)
+
+		expect(min([1, 2, "3"])).toBe(1)
+
+		expect(min(["1", "2", "3"])).toBe(1)
+
+		expect(min([1, 2, 3], [4, 5, 6])).toBe(1)
+
+		expect(min(["1", "2", "3"], [4, 5, 6])).toBe(1)
 	})
 })

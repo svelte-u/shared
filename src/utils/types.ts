@@ -292,16 +292,10 @@ export interface StrftimeOptions extends Intl.DateTimeFormatOptions {
 
 export type StringOrNumber = string | number
 
-export type SumAble =
+export type Sequential =
 	| number[]
 	| string[]
 	| StringOrNumber[]
 	| number[][]
 	| string[][]
 	| StringOrNumber[][]
-
-export type SubtractAble = SumAble
-
-export type MultiplyAble = SumAble
-
-export type DivideAble = SumAble
