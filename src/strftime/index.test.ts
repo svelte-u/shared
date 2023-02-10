@@ -9,7 +9,9 @@ describe("strftime", () => {
 	it("should work with default", () => {
 		const date = new Date("2021-01-01T00:00:00.000Z")
 
-		const result = strftime(date, "%Y-%m-%d %H:%M:%S")
+		const result = strftime(date, "%Y-%m-%d %H:%M:%S", {
+			timeZone: "Asia/Riyadh",
+		})
 
 		expect(result).toMatchInlineSnapshot('"2021-01-01 3:00:00"')
 	})
@@ -17,7 +19,7 @@ describe("strftime", () => {
 	it("should work current local", () => {
 		const date = new Date("2021-01-01T00:00:00.000Z")
 
-		const result = strftime(date, "%c")
+		const result = strftime(date, "%c", { timeZone: "Asia/Riyadh" })
 
 		expect(result).toMatchInlineSnapshot('"1/1/2021, 3:00:00 AM"')
 	})
