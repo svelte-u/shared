@@ -1,10 +1,13 @@
 {
-    "total": 35,
+    "total": 36,
     "packages": {
         "curry": [
             "chain",
             "compose",
             "partial"
+        ],
+        "dicts": [
+            "contains"
         ],
         "math": [
             "arithmetic",

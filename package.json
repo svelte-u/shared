@@ -36,6 +36,9 @@
         "./curry": {
             "import": "./curry.js"
         },
+        "./dicts": {
+            "import": "./dicts.js"
+        },
         "./math": {
             "import": "./math.js"
         }
