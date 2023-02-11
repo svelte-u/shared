@@ -304,7 +304,7 @@ export interface PrecisionOptions {
 	/**
 	 * Method to use for rounding
 	 *
-	 * @default 'round'
+	 * @defaultValue 'round'
 	 */
 	math?: "floor" | "ceil" | "round"
 }
