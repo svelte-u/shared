@@ -1,5 +1,5 @@
 {
-    "total": 40,
+    "total": 41,
     "packages": {
         "curry": [
             "chain",
@@ -8,6 +8,7 @@
         ],
         "dicts": [
             "contains",
+            "filter",
             "invert",
             "listify",
             "picker",
