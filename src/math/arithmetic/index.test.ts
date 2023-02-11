@@ -148,6 +148,8 @@ describe("arithmetic", () => {
 	})
 
 	it("should Divide", () => {
+		expect(divide(52500, 5, 3, "7", 10, "5")).toBe(10)
+
 		expect(divide(1, 2)).toBe(0.5)
 
 		expect(divide("1", "2")).toBe(0.5)

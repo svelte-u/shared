@@ -79,18 +79,23 @@ export function multiply(...args: Sequential): number {
  * @returns The division of all the numbers in given sequences.
  */
 export function divide(...args: Sequential): number {
-	let result = 1
+	let result
 
 	for (const arg of args) {
 		if (Array.isArray(arg)) {
 			for (const item of arg) {
-				result /= to_number(item)
+				if (result === undefined) result = to_number(item)
+				else {
+					result /= to_number(item)
+				}
 			}
 		} else {
-			result /= to_number(arg)
+			if (result === undefined) result = to_number(arg)
+			else result /= to_number(arg)
 		}
 	}
 
+	if (result === undefined) result = 0
 	return result
 }
 
