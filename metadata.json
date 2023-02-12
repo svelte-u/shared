@@ -1,5 +1,5 @@
 {
-    "total": 43,
+    "total": 44,
     "packages": {
         "curry": [
             "chain",
@@ -16,7 +16,8 @@
             "pops"
         ],
         "lists": [
-            "cluster"
+            "cluster",
+            "count"
         ],
         "math": [
             "arithmetic",
