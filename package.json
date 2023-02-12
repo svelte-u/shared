@@ -39,6 +39,9 @@
         "./dicts": {
             "import": "./dicts.js"
         },
+        "./lists": {
+            "import": "./lists.js"
+        },
         "./math": {
             "import": "./math.js"
         }

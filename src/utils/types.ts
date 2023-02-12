@@ -310,3 +310,12 @@ export interface PrecisionOptions {
 }
 
 export type Dict = Record<string | number | symbol, any>
+
+export interface ClusterOptions {
+	/**
+	 * The size of each list.
+	 *
+	 * @defaultValue 2
+	 */
+	size?: number
+}

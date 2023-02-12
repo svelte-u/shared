@@ -6,6 +6,7 @@ export default <Options>{
 		curry: "src/curry/index.ts",
 		dicts: "src/dicts/index.ts",
 		math: "src/math/index.ts",
+		lists: "src/lists/index.ts",
 	},
 	outDir: "./",
 

@@ -1,5 +1,5 @@
 {
-    "total": 42,
+    "total": 43,
     "packages": {
         "curry": [
             "chain",
@@ -14,6 +14,9 @@
             "listify",
             "picker",
             "pops"
+        ],
+        "lists": [
+            "cluster"
         ],
         "math": [
             "arithmetic",
