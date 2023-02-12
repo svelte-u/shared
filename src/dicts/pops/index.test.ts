@@ -13,8 +13,9 @@ describe("pops", () => {
 			b: 2,
 			c: 3,
 		}
+		pops(obj, ["a", "b"])
 
-		expect(pops(obj, ["a", "b"])).toEqual({
+		expect(obj).toEqual({
 			c: 3,
 		})
 	})
@@ -25,8 +26,9 @@ describe("pops", () => {
 			b: 2,
 			c: 3,
 		}
+		pops(obj, [])
 
-		expect(pops(obj, [])).toEqual({
+		expect(obj).toEqual({
 			a: 1,
 			b: 2,
 			c: 3,
@@ -38,7 +40,9 @@ describe("pops", () => {
 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		expect(pops(obj, ["a", "b"])).toEqual({})
+		pops(obj, ["a", "b"])
+
+		expect(obj).toEqual({})
 	})
 
 	it("should work with empty object and empty keys", () => {
@@ -46,7 +50,9 @@ describe("pops", () => {
 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		expect(pops(obj, [])).toEqual({})
+		pops(obj, [])
+
+		expect(obj).toEqual({})
 	})
 
 	it("should work with non-existent keys", () => {
@@ -58,7 +64,9 @@ describe("pops", () => {
 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		expect(pops(obj, ["d", "e"])).toEqual({
+		pops(obj, ["d", "e"])
+
+		expect(obj).toEqual({
 			a: 1,
 			b: 2,
 			c: 3,
