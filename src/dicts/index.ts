@@ -1,4 +1,5 @@
 export * from "./contains"
+export * from "./enhance"
 export * from "./filter"
 export * from "./invert"
 export * from "./listify"

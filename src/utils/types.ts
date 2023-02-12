@@ -308,3 +308,5 @@ export interface PrecisionOptions {
 	 */
 	math?: "floor" | "ceil" | "round"
 }
+
+export type Dict = Record<string | number | symbol, any>
