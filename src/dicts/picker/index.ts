@@ -5,6 +5,8 @@
  *
  * @param keys - The keys to pick.
  *
+ * @param omit_undefined - If true, the keys with undefined values will be omitted.
+ *
  * @returns The new object with the specified keys from the original object
  */
 export function picker<
