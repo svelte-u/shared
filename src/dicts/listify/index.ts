@@ -1,15 +1,3 @@
-// export const listify = <Value, Key extends string | number | symbol, KResult>(
-// 	obj: Record<Key, Value>,
-// 	toItem: (key: Key, value: Value) => KResult
-// ) => {
-// 	if (!obj) return []
-// 	const entries = Object.entries(obj)
-// 	if (entries.length === 0) return []
-// 	return entries.reduce((acc, entry) => {
-// 		return [...acc, toItem(entry[0] as Key, entry[1] as Value)]
-// 	}, [] as KResult[])
-// }
-
 /**
  * Convert an object to a list of items.
  *
