@@ -8,7 +8,7 @@
  * @returns The object without the given keys.
  */
 export function pops<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-	const copy = structuredClone ? structuredClone(obj) : { ...obj }
+	const copy = { ...obj }
 
 	for (const key of keys) {
 		delete copy[key]
