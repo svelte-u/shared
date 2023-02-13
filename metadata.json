@@ -1,5 +1,5 @@
 {
-    "total": 46,
+    "total": 47,
     "packages": {
         "curry": [
             "chain",
@@ -19,7 +19,8 @@
             "cluster",
             "count",
             "fork",
-            "group"
+            "group",
+            "intersects"
         ],
         "math": [
             "arithmetic",

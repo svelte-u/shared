@@ -319,3 +319,7 @@ export interface ClusterOptions {
 	 */
 	size?: number
 }
+
+export interface IntersectsOptions<T, K extends string | number | symbol> {
+	fn?: (item: T) => K
+}
