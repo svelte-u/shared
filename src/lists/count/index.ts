@@ -1,4 +1,4 @@
-import { Dict } from "../../utils"
+import type { Dict } from "../../utils"
 
 /**
  * Counts the number of times each item appears in a list.

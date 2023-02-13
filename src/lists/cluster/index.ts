@@ -1,4 +1,4 @@
-import { ClusterOptions } from "../../utils"
+import type { ClusterOptions } from "../../utils"
 
 /**
  * Split a list into sublists.
