@@ -1,5 +1,5 @@
 {
-    "total": 49,
+    "total": 50,
     "packages": {
         "curry": [
             "chain",
@@ -22,7 +22,8 @@
             "group",
             "intersects",
             "merge",
-            "select"
+            "select",
+            "unique"
         ],
         "math": [
             "arithmetic",
