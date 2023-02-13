@@ -1,5 +1,6 @@
 export * from "./cluster"
 export * from "./count"
+export * from "./enhance"
 export * from "./fork"
 export * from "./group"
 export * from "./intersects"

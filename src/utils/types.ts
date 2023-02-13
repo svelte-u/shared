@@ -323,3 +323,29 @@ export interface ClusterOptions {
 export interface IntersectsOptions<T, K extends string | number | symbol> {
 	fn?: (item: T) => K
 }
+
+export interface EnhanceSortOptions {
+	/**
+	 * Sorting type
+	 *
+	 * @defaultValue string
+	 */
+	type?: "number" | "string" | "object"
+
+	/**
+	 * If the type is object, this will sort it by the given key
+	 * 
+	 * @defaultValue if sort_by isn't provided, it will sort by the first key
+	 
+	*/
+	sort_by?: string
+
+	/**
+	 * Reverse the sorting
+	 *
+	 * @defaultValue false
+	 *
+	 *
+	 */
+	reverse?: boolean
+}
