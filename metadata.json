@@ -1,5 +1,5 @@
 {
-    "total": 53,
+    "total": 54,
     "packages": {
         "curry": [
             "chain",
@@ -43,6 +43,7 @@
             "last_changed",
             "len",
             "make_destructurable",
+            "object_url",
             "on_destroy",
             "on_mount",
             "range",
