@@ -1,5 +1,5 @@
 {
-    "total": 52,
+    "total": 53,
     "packages": {
         "curry": [
             "chain",
@@ -35,6 +35,7 @@
         ],
         "index": [
             "adjust_with_unit",
+            "async_state",
             "create_event_hook",
             "create_singleton_promise",
             "debounce",
