@@ -7,11 +7,14 @@ import type { Fn } from "../utils"
  *
  * @param fn - the function to be called when the component is destroyed
  *
+ * @returns true if onDestroy() is called, false if not
  */
 export function on_destroy(fn: Fn) {
 	try {
 		onDestroy(fn)
+
+		return true
 	} catch {
-		// do nothing
+		return false
 	}
 }

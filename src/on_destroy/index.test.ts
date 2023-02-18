@@ -10,8 +10,10 @@ describe("on_destroy", () => {
 	it("should work", () => {
 		const fn = vitest.fn()
 
-		on_destroy(fn)
+		const destroyed = on_destroy(fn)
 
 		expect(fn).not.toHaveBeenCalled()
+
+		expect(destroyed).toBe(false)
 	})
 })
