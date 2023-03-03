@@ -1,5 +1,3 @@
-import type { Dict } from "../../utils"
-
 /**
  * Counts the number of times each item appears in a list.
  *
@@ -9,10 +7,7 @@ import type { Dict } from "../../utils"
  *
  * @returns A record of the number of times each item appears in the list.
  */
-export function count<T extends Dict>(
-	list: T[],
-	fn: (item: T) => string | number | symbol
-) {
+export function count<T>(list: T[], fn: (item: T) => string | number | symbol) {
 	return list.reduce((acc, item) => {
 		const id = fn(item)
 		return {
