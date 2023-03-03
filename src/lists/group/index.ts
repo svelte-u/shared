@@ -7,7 +7,7 @@
  *
  * @returns A record of lists, where the key is the result of the function, and the value is the list of items that match the key
  */
-export function group<T>(list: T[], fn: (item: T) => string) {
+export function group<T>(list: T[], fn: (item: T) => any) {
 	return list.reduce((acc, item) => {
 		const id = fn(item)
 		const group_list = acc[id] ?? []
