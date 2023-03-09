@@ -1,4 +1,4 @@
-import { EventHook } from "../utils"
+import type { EventHook } from "../utils"
 
 /**
  * Utility for creating event hooks
