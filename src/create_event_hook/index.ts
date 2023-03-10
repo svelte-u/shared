@@ -1,29 +1,54 @@
+import { on_destroy } from "../on_destroy"
 import type { EventHook } from "../utils"
 
 /**
  * Utility for creating event hooks
  *
  * @returns - Event hooks
+ * - `on` - Add a function to the event hook
+ * - `off` - Remove a function from the event hook
+ * - `trigger` - Trigger the event hook
  */
 export function create_event_hook<T = any>(): EventHook<T> {
-	const fns: Array<(param: T) => void> = []
+	const fns: Set<(param: T) => void> = new Set()
 
-	const off = (fn: (param: T) => void) => {
-		const index = fns.indexOf(fn)
-
-		if (index !== -1) fns.splice(index, 1)
+	/**
+	 * Remove a function from the event hook
+	 *
+	 * @param fn - Function to remove
+	 */
+	function off(fn: (param: T) => void) {
+		fns.delete(fn)
 	}
 
-	const on = (fn: (param: T) => void) => {
-		fns.push(fn)
+	/**
+	 * Add a function to the event hook
+	 *
+	 * @param fn - Function to add
+	 *
+	 * @returns - Function to remove the function
+	 */
+	function on(fn: (param: T) => void) {
+		fns.add(fn)
+
+		const off_fn = () => off(fn)
+
+		on_destroy(off_fn)
 
 		return {
-			off: () => off(fn),
+			off: off_fn,
 		}
 	}
 
-	const trigger = (param: T) => {
-		fns.forEach((fn) => fn(param))
+	/**
+	 * Trigger the event hook
+	 *
+	 * @param param - Parameter to pass to the functions
+	 *
+	 * @returns - Promise that resolves when all functions have resolved
+	 */
+	function trigger(param: T) {
+		return Promise.all(Array.from(fns).map((fn) => fn(param)))
 	}
 
 	return {

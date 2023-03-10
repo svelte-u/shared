@@ -192,7 +192,7 @@ export type EventHookOn<T = any> = (fn: (param: T) => void) => {
 
 export type EventHookOff<T = any> = (fn: (param: T) => void) => void
 
-export type EventHookTrigger<T = any> = (param: T) => void
+export type EventHookTrigger<T = any> = (param: T) => Promise<unknown[]>
 
 export interface EventHook<T = any> {
 	on: EventHookOn<T>
