@@ -72,14 +72,14 @@ export interface Pauseable {
 	resume: Fn
 }
 
-export interface PartialWritable {
+export interface PartialWritable<T> {
 	/**The set function in writable stores. */
-	set: (value: any) => void
+	set: (value: T) => void
 
 	/** The subscribe function in writable stores. */
 	subscribe: (
-		run: (value: any) => void,
-		invalidate?: (value?: any) => void
+		run: (value: T) => void,
+		invalidate?: (value?: T) => void
 	) => () => void
 }
 

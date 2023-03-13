@@ -18,7 +18,7 @@ export function last_changed<T>(
 ) {
 	const timestamp = to_writable(initial_timestamp ?? +Date.now())
 
-	const value = watchable(initial_value, () => timestamp.set(+Date.now()))
+	const value = watchable<T>(initial_value, () => timestamp.set(+Date.now()))
 
 	return { value, timestamp: to_readable(timestamp) }
 }

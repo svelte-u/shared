@@ -15,7 +15,7 @@ import type { MaybeStore, PartialWritable } from "../utils"
 export function watchable<T>(
 	initial_value: MaybeStore<T>,
 	fn: (o: T, n: T) => void
-): PartialWritable {
+): PartialWritable<T> {
 	const { subscribe, update } = to_writable(initial_value)
 
 	return {
