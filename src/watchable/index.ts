@@ -1,5 +1,5 @@
 import { to_writable } from "../to_writable"
-import type { MaybeStore, PartialWritable } from "../utils"
+import type { MaybeStore, Watchable } from "../utils"
 
 /**
  * Creates a writable store that calls a function when the value changes.
@@ -15,16 +15,26 @@ import type { MaybeStore, PartialWritable } from "../utils"
 export function watchable<T>(
 	initial_value: MaybeStore<T>,
 	fn: (o: T, n: T) => void
-): PartialWritable<T> {
+): Watchable<T> {
 	const { subscribe, update } = to_writable(initial_value)
+
+	let active = true
 
 	return {
 		subscribe,
 		set: (value: T) => {
 			update((old_value) => {
-				fn(old_value, value)
+				if (active) fn(old_value, value)
 				return value
 			})
+		},
+
+		pause: () => {
+			active = false
+		},
+
+		resume: () => {
+			active = true
 		},
 	}
 }

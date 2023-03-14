@@ -48,4 +48,21 @@ describe("watchable", () => {
 
 		w.set("123.456")
 	})
+
+	it("Should pause and resume the watching", () => {
+		let count = 0
+
+		const w = watchable(123.345, () => count++)
+
+		w.set(123.456)
+		expect(count).toBe(1)
+
+		w.pause()
+		w.set(123.456)
+		expect(count).toBe(1)
+
+		w.resume()
+		w.set(123.456)
+		expect(count).toBe(2)
+	})
 })

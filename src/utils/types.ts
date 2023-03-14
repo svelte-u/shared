@@ -392,3 +392,11 @@ export interface AsyncStateOptions {
 	 */
 	throw_error?: boolean
 }
+
+export interface Watchable<T> extends PartialWritable<T> {
+	/** Stop watching */
+	pause: () => void
+
+	/** Resume watching */
+	resume: () => void
+}
