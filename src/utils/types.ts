@@ -400,3 +400,21 @@ export interface Watchable<T> extends PartialWritable<T> {
 	/** Resume watching */
 	resume: () => void
 }
+
+export interface CycleOptions<T> {
+	/**
+	 * The initial value of the state.
+	 * A ref can be provided to reuse.
+	 */
+	fallback?: T
+
+	/**
+	 * The default index when
+	 */
+	fallback_index?: number
+
+	/**
+	 * Custom function to get the index of the current value.
+	 */
+	get_index?: (value: T, list: T[]) => number
+}
