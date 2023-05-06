@@ -1,7 +1,7 @@
 {
     "name": "@sveu/shared",
     "version": "0.10.0",
-    "packageManager": "pnpm@7.20.0",
+    "packageManager": "pnpm@8.4.0",
     "description": "Shared utilities for svelte utility libraries",
     "author": "Mohamed Nesredin<https://github.com/Mohamed-Kaizen>",
     "license": "MIT",
@@ -25,7 +25,7 @@
         "commit": "cz commit",
         "lint": "eslint .",
         "lint:fix": "pnpm run lint --fix",
-        "release": "bumpp --all",
+        "release": "bumpp",
         "test": "vitest run",
         "test:watch": "vitest --watch"
     },
@@ -49,21 +49,21 @@
     "devDependencies": {
         "@trivago/prettier-plugin-sort-imports": "^4.1.1",
         "@types/fs-extra": "^11.0.1",
-        "@types/node": "^18.15.3",
-        "@typescript-eslint/eslint-plugin": "^5.55.0",
-        "@typescript-eslint/parser": "^5.55.0",
-        "bumpp": "^8.2.1",
-        "eslint": "^8.36.0",
-        "eslint-config-prettier": "^8.7.0",
+        "@types/node": "^20.1.0",
+        "@typescript-eslint/eslint-plugin": "^5.59.2",
+        "@typescript-eslint/parser": "^5.59.2",
+        "bumpp": "^9.1.0",
+        "eslint": "^8.40.0",
+        "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-tsdoc": "^0.2.17",
         "fast-glob": "^3.2.12",
-        "fs-extra": "^11.1.0",
-        "prettier": "^2.8.4",
-        "svelte": "^3.57.0",
-        "tsup": "^6.6.3",
-        "tsx": "^3.12.5",
-        "typescript": "^4.9.5",
-        "vitest": "^0.29.3"
+        "fs-extra": "^11.1.1",
+        "prettier": "^2.8.8",
+        "svelte": "^3.59.0",
+        "tsup": "^6.7.0",
+        "tsx": "^3.12.7",
+        "typescript": "^5.0.4",
+        "vitest": "^0.31.0"
     },
     "publishConfig": {
         "access": "public"
