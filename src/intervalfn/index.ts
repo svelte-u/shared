@@ -38,7 +38,7 @@ export function intervalfn(
 	}
 
 	function resume() {
-		if (interval <= 0) return
+		if (unstore(interval) <= 0) return
 
 		active.set(true)
 
