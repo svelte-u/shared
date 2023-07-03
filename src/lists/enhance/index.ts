@@ -1,5 +1,5 @@
-import { to_writable } from "../../to_writable"
-import { unstore } from "../../unstore"
+import { toWritable } from "../../utils"
+import { unstore } from "../../utils"
 import type { Dict, EnhanceSortOptions } from "../../utils"
 import { sort as _sort } from "../sort"
 
@@ -7,6 +7,20 @@ import { sort as _sort } from "../sort"
  * Enhance an array with some useful methods.
  *
  * @param arr - The array to enhance.
+ *
+ * @example
+ * ```ts
+ * const list = enhance([1, 2, 3])
+ * list.subscribe((value) => console.log(value))
+ * list.append(4)
+ * list.clear()
+ * list.count(1)
+ * list.copy()
+ * list.index(1)
+ * list.insert(1, 2)
+ * list.remove(1)
+ * list.pop()
+ * ```
  *
  * @returns The enhanced array.
  * - `subscribe` - A svelte store.
@@ -21,7 +35,7 @@ import { sort as _sort } from "../sort"
  * - `sort` - Sort the list.
  */
 export function enhance<T>(arr: T[]) {
-	const list = to_writable(arr)
+	const list = toWritable(arr)
 
 	/**
 	 * Add the item to the end of the list.
@@ -144,7 +158,7 @@ export function enhance<T>(arr: T[]) {
 	 * - `reverse`: Reverse the list. (default: false)
 	 */
 	function sort(options: EnhanceSortOptions = {}) {
-		const { type = "string", sort_by, reverse = false } = options
+		const { type = "string", sortBy, reverse = false } = options
 
 		const _list = unstore(list)
 
@@ -157,7 +171,7 @@ export function enhance<T>(arr: T[]) {
 		} else if (type === "number") {
 			list.set(_list.sort((a: any, b: any) => (reverse ? b - a : a - b)))
 		} else if (type === "object") {
-			let _sort_by = sort_by ?? Object.keys(_list[0] as Dict)[0]
+			let _sort_by = sortBy ?? Object.keys(_list[0] as Dict)[0]
 
 			if (reverse) {
 				_sort_by = `-${_sort_by}`

@@ -1,5 +1,5 @@
-import { to_writable } from "../../to_writable"
-import { unstore } from "../../unstore"
+import { toWritable } from "../../utils"
+import { unstore } from "../../utils"
 import type { Dict } from "../../utils"
 import { contains as _contains } from "../contains"
 import { invert as _invert } from "../invert"
@@ -9,13 +9,30 @@ import { invert as _invert } from "../invert"
  *
  * @param obj - The object to enhance.
  *
+ * @example
+ * ```ts
+ * const dict = enhance({ a: 1, b: 2 })
+ * dict.subscribe((n) => console.log(n))
+ * dict.add("c", 3)
+ * dict.clear()
+ * dict.contains("a")
+ * dict.copy()
+ * dict.fromKeys(["a", "b", "c"])
+ * dict.get("a")
+ * dict.invert()
+ * dict.keys()
+ * dict.pop("a")
+ * dict.popitem()
+ * dict.values()
+ * ```
+ *
  * @returns The enhanced object.
  * - `subscribe` - A svelte store.
  * - `add` - Add a value to the dict.
  * - `clear` - Clear the dict.
  * - `contains` - Check if the dict contains a key.
  * - `copy` - Copy the dict.
- * - `from_keys` - Create a dict from keys.
+ * - `fromKeys` - Create a dict from keys.
  * - `get` - Get a value from the dict.
  * - `invert` - Invert the dict.
  * - `keys` - Get the keys of the dict.
@@ -24,7 +41,7 @@ import { invert as _invert } from "../invert"
  * - `values` - Get the values of the dict.
  */
 export function enhance(obj: Dict) {
-	const dict = to_writable(obj)
+	const dict = toWritable(obj)
 
 	/**
 	 * Add a value to the dict.
@@ -78,7 +95,7 @@ export function enhance(obj: Dict) {
 	 *
 	 * @returns The created dict.
 	 */
-	function from_keys(keys: string[], value: unknown) {
+	function fromKeys(keys: string[], value: unknown) {
 		return enhance(
 			keys.reduce((n, k) => {
 				n[k] = value
@@ -174,7 +191,7 @@ export function enhance(obj: Dict) {
 		clear,
 		contains,
 		copy,
-		from_keys,
+		fromKeys,
 		get,
 		invert,
 		keys,

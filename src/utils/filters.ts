@@ -1,12 +1,12 @@
 import { get, writable } from "svelte/store"
 
-import { to_readable } from "../to_readable"
+import { toReadable } from "../utils"
 import { noop } from "./is"
 import type {
 	AnyFn,
+	ArgumentsType,
 	DebounceFilterOptions,
 	EventFilter,
-	FunctionArgs,
 	Pauseable,
 } from "./types"
 
@@ -19,17 +19,24 @@ import type {
  *
  * @param fn - The function to be wrapped
  *
- * @returns A wrapped function
+ *  @returns A wrapped function
  */
-export function create_filter_wrapper<T extends FunctionArgs>(
+export function createFilterWrapper<T extends AnyFn>(
 	filter: EventFilter,
 	fn: T
 ) {
-	function wrapper(this: any, ...args: any[]) {
-		filter(() => fn.apply(this, args), { fn, this_arg: this, args })
+	function wrapper(this: any, ...args: ArgumentsType<T>) {
+		return new Promise<ReturnType<T>>((resolve, reject) => {
+			// make sure it's a promise
+			Promise.resolve(
+				filter(() => fn.apply(this, args), { fn, thisArg: this, args })
+			)
+				.then(resolve)
+				.catch(reject)
+		})
 	}
 
-	return wrapper as any as T
+	return wrapper
 }
 
 /**
@@ -39,7 +46,7 @@ export function create_filter_wrapper<T extends FunctionArgs>(
  *
  * @returns The result of the function
  */
-export const bypass_filter: EventFilter = (invoke) => {
+export const bypassFilter: EventFilter = (invoke) => {
 	return invoke()
 }
 
@@ -49,57 +56,57 @@ export const bypass_filter: EventFilter = (invoke) => {
  * @param s - The time to wait before invoking the function in seconds
  *
  * @param options - The options for the filter
+ * - `maxWait` - The maximum time allowed to be delayed before it's invoked. In seconds.
+ * - `rejectOnCancel` - Whether to reject the last call if it's been cancel. Default to `false`
+ *
+ * @returns The event filter function
  */
 
-export function debounce_filter(
-	s: number,
-	options: DebounceFilterOptions = {}
-) {
+export function debounceFilter(s: number, options: DebounceFilterOptions = {}) {
 	let timer: ReturnType<typeof setTimeout> | undefined
 
-	let max_timer: ReturnType<typeof setTimeout> | undefined | null
+	let maxTimer: ReturnType<typeof setTimeout> | undefined | null
 
-	let last_rejector: AnyFn = noop
+	let lastRejector: AnyFn = noop
 
 	const _clearTimeout = (timer: ReturnType<typeof setTimeout>) => {
 		clearTimeout(timer)
-		last_rejector()
-		last_rejector = noop
+		lastRejector()
+		lastRejector = noop
 	}
 
 	const filter: EventFilter = (invoke) => {
 		const duration = s
 
-		const max_duration = options.max_wait
+		const maxDuration = options.maxWait
 
 		if (timer) _clearTimeout(timer)
 
-		if (
-			duration <= 0 ||
-			(max_duration !== undefined && max_duration <= 0)
-		) {
-			if (max_timer) {
-				_clearTimeout(max_timer)
-				max_timer = null
+		if (duration <= 0 || (maxDuration !== undefined && maxDuration <= 0)) {
+			if (maxTimer) {
+				_clearTimeout(maxTimer)
+				maxTimer = null
 			}
 			return Promise.resolve(invoke())
 		}
 
 		return new Promise((resolve, reject) => {
-			last_rejector = options.reject_on_cancel ? reject : resolve
-			// Create the max_timer. Clears the regular timer on invoke
-			if (max_duration && duration > max_duration && !max_timer) {
-				max_timer = setTimeout(() => {
+			lastRejector = options.rejectOnCancel ? reject : resolve
+			// Create the maxTimer. Clears the regular timer on invoke
+			if (maxDuration && duration > maxDuration && !maxTimer) {
+				maxTimer = setTimeout(() => {
 					if (timer) _clearTimeout(timer)
-					max_timer = null
+
+					maxTimer = null
+
 					resolve(invoke())
-				}, max_duration * 1000)
+				}, maxDuration * 1000)
 			}
 
 			// Create the regular timer. Clears the max timer on invoke
 			timer = setTimeout(() => {
-				if (max_timer) _clearTimeout(max_timer)
-				max_timer = null
+				if (maxTimer) _clearTimeout(maxTimer)
+				maxTimer = null
 				resolve(invoke())
 			}, duration * 1000)
 		})
@@ -117,58 +124,58 @@ export function debounce_filter(
  *
  * @param leading - Whether to invoke the function on the leading edge of the wait interval
  *
- * @param reject_on_cancel - Whether to reject the promise when the event is cancelled
+ * @param rejectOnCancel - Whether to reject the promise when the event is cancelled
  */
-export function throttle_filter(
+export function throttleFilter(
 	s: number,
 	trailing = true,
 	leading = true,
-	reject_on_cancel = false
+	rejectOnCancel = false
 ) {
-	let last_exec = 0
+	let lastExec = 0
 
 	let timer: ReturnType<typeof setTimeout> | undefined
 
-	let is_leading = true
+	let isLeading = true
 
-	let last_rejector: AnyFn = noop
+	let lastRejector: AnyFn = noop
 
-	let last_value: any
+	let lastValue: any
 
 	const clear = () => {
 		if (timer) {
 			clearTimeout(timer)
 			timer = undefined
-			last_rejector()
-			last_rejector = noop
+			lastRejector()
+			lastRejector = noop
 		}
 	}
 
 	const filter: EventFilter = (_invoke) => {
 		const duration = s * 1000
 
-		const elapsed = Date.now() - last_exec
+		const elapsed = Date.now() - lastExec
 
 		const invoke = () => {
-			return (last_value = _invoke())
+			return (lastValue = _invoke())
 		}
 
 		clear()
 
 		if (duration <= 0) {
-			last_exec = Date.now()
+			lastExec = Date.now()
 			return invoke()
 		}
 
-		if (elapsed > duration && (leading || !is_leading)) {
-			last_exec = Date.now()
+		if (elapsed > duration && (leading || !isLeading)) {
+			lastExec = Date.now()
 			invoke()
 		} else if (trailing) {
 			return new Promise((resolve, reject) => {
-				last_rejector = reject_on_cancel ? reject : resolve
+				lastRejector = rejectOnCancel ? reject : resolve
 				timer = setTimeout(() => {
-					last_exec = Date.now()
-					is_leading = true
+					lastExec = Date.now()
+					isLeading = true
 					resolve(invoke())
 					clear()
 				}, duration - elapsed)
@@ -176,11 +183,11 @@ export function throttle_filter(
 		}
 
 		if (!leading && !timer)
-			timer = setTimeout(() => (is_leading = true), duration)
+			timer = setTimeout(() => (isLeading = true), duration)
 
-		is_leading = false
+		isLeading = false
 
-		return last_value
+		return lastValue
 	}
 
 	return filter
@@ -189,12 +196,18 @@ export function throttle_filter(
 /**
  * EventFilter that gives extra controls to pause and resume the filter
  *
- * @param extend_filter - Extra filter to apply when the PauseableFilter is active, default to none
+ * @param extendFilter - Extra filter to apply when the PauseableFilter is active, default to none
+ *
+ * @returns
+ * - `active` - A readable store that indicates whether the filter is active
+ * - `pause` - A function to pause the filter
+ * - `resume` - A function to resume the filter
+ * - `eventFilter` - The event filter function
  *
  */
-export function pauseable_filter(
-	extend_filter: EventFilter = bypass_filter
-): Pauseable & { event_filter: EventFilter } {
+export function pauseableFilter(
+	extendFilter: EventFilter = bypassFilter
+): Pauseable & { eventFilter: EventFilter } {
 	const active = writable(true)
 
 	function pause() {
@@ -205,9 +218,9 @@ export function pauseable_filter(
 		active.set(true)
 	}
 
-	const event_filter: EventFilter = (...args) => {
-		if (get(active)) extend_filter(...args)
+	const eventFilter: EventFilter = (...args) => {
+		if (get(active)) extendFilter(...args)
 	}
 
-	return { active: to_readable(active), pause, resume, event_filter }
+	return { active: toReadable(active), pause, resume, eventFilter }
 }

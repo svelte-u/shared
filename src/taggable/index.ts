@@ -1,9 +1,9 @@
 import type { Writable } from "svelte/store"
 
-import { to_readable } from "../to_readable"
-import { to_writable } from "../to_writable"
-import { unstore } from "../unstore"
-import { is_boolean, is_writable } from "../utils"
+import { toWritable } from "../utils"
+import { toReadable } from "../utils"
+import { unstore } from "../utils"
+import { isWritable } from "../utils"
 import type { DefaultTaggableReturn, MaybeStore, ToggleFn } from "../utils"
 
 /**
@@ -20,23 +20,27 @@ import type { DefaultTaggableReturn, MaybeStore, ToggleFn } from "../utils"
 export function taggable(value: Writable<boolean>): ToggleFn
 export function taggable(value?: MaybeStore<boolean>): DefaultTaggableReturn
 export function taggable(value: MaybeStore<boolean> = false) {
-	if (is_writable(value)) {
+	if (isWritable(value)) {
 		return (_value?: boolean) => {
 			if (typeof _value !== "undefined") {
-				value.set(is_boolean(_value) ? _value : !unstore(value))
+				value.set(
+					typeof _value === "boolean" ? _value : !unstore(value)
+				)
 			} else value.set(!unstore(value))
 		}
 	} else {
-		const store = to_writable(value)
+		const store = toWritable(value)
 
 		const toggle = (_value?: boolean) => {
 			if (typeof _value !== "undefined") {
-				store.set(is_boolean(_value) ? _value : !unstore(store))
+				store.set(
+					typeof _value === "boolean" ? _value : !unstore(store)
+				)
 			} else store.set(!unstore(store))
 		}
 
 		return {
-			toggled: to_readable(store),
+			toggled: toReadable(store),
 			toggle,
 		}
 	}

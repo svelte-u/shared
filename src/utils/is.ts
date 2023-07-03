@@ -1,102 +1,164 @@
 import type { Readable, Writable } from "svelte/store"
 
-import { type } from "../type"
+import { type } from "./helpers"
 import type { MaybeStore } from "./types"
 
 export const browser = typeof window !== "undefined"
 
-export const is_ws = typeof WebSocket !== "undefined"
+export const isWs = typeof WebSocket !== "undefined"
 
-export function is_set<T>(value?: T): boolean {
-	return type(value) === "set"
+/**
+ * Check if the value is a function
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is a function or not
+ */
+export function isFunction<T>(value?: T): boolean {
+	return type(value, true) === "[object Function]"
 }
 
-export function is_boolean<T>(value?: T): boolean {
-	return type(value) === "boolean"
+/**
+ * Check if the value is a number
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is a number or not
+ */
+function isNumber(value: unknown): value is number {
+	return type(value, true) === "[object Number]"
 }
 
-export function is_function<T>(value?: T): boolean {
-	return type(value) === "function"
+/**
+ * Check if the value is a date
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is a date or not
+ */
+function isDate(value: unknown): value is Date {
+	return type(value, true) === "[object Date]"
 }
 
-export function is_number<T>(value?: T): boolean {
-	return type(value) === "number"
+/**
+ * Check if the value is a symbol
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is a symbol or not
+ */
+function isSymbol(value: unknown): value is symbol {
+	return type(value, true) === "[object Symbol]"
 }
 
-export function is_string<T>(value?: T): boolean {
-	return type(value) === "string"
+/**
+ * Check if the value is readable store, if return the subscribe function
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is readable store or not
+ */
+export function isReadable<T>(value: any): value is Readable<T> {
+	return value && isFunction(value?.subscribe)
 }
 
-export function is_object<T>(value?: T): boolean {
-	return type(value) === "object"
-}
-
-export function is_array<T>(value?: T): boolean {
-	return type(value) === "array"
-}
-
-export function is_date<T>(value?: T): boolean {
-	return type(value) === "date"
-}
-
-export function is_symbol<T>(value?: T): boolean {
-	return type(value) === "symbol"
-}
-
-export function is_window<T>(value?: T): boolean {
-	return typeof window !== "undefined" && type(value) === "window"
-}
-
-export function is_readable<T>(store: any): store is Readable<T> {
-	return store && is_function(store?.subscribe)
-}
-
-export function is_writable<T>(store: any): store is Writable<T> {
+/**
+ * Check if the value is writable store, if return the set, update and subscribe function
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is writable store or not
+ */
+export function isWritable<T>(value: any): value is Writable<T> {
 	return (
-		store &&
-		["subscribe", "set", "update"].every((n) => is_function(store[n]))
+		value &&
+		["subscribe", "set", "update"].every((n) => isFunction(value[n]))
 	)
 }
 
-export function is_partial_writable<T>(store: any): store is Writable<T> {
-	return store && ["subscribe", "set"].every((n) => is_function(store[n]))
+/**
+ * Check if the value is partial writable store, if return the set and subscribe function
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is partial writable store or not
+ *
+ */
+export function isPartialWritable<T>(value: any): value is Writable<T> {
+	return value && ["subscribe", "set"].every((n) => isFunction(value[n]))
 }
 
-export function is_readable_only<T>(store: any): store is Readable<T> {
-	return store && is_function(store?.subscribe) && !is_writable(store)
+/**
+ * Check if the value is readable only store, that only return the subscribe function without set and update
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is readable only store or not
+ */
+export function isReadableOnly<T>(value: any): value is Readable<T> {
+	return (
+		value &&
+		isFunction(value?.subscribe) &&
+		!isWritable(value) &&
+		!isPartialWritable(value)
+	)
 }
 
-export function is_store<T>(store: any): store is MaybeStore<T> {
-	return is_readable(store) || is_writable(store)
+/**
+ * Check if the value is svelte store.
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is svelte store or not
+ */
+export function isStore<T>(value: any): value is MaybeStore<T> {
+	return isReadable(value) || isWritable(value)
 }
 
-export function is_empty(value: any) {
+/**
+ * Check if the value is empty
+ *
+ * @param value - The value to check
+ *
+ * @returns Whether the value is empty or not
+ *
+ */
+export function isEmpty(value: unknown) {
 	if (value === true || value === false) return true
 
 	if (value === null || value === undefined) return true
 
-	if (is_number(value)) return parseInt(value) === 0
+	if (isNumber(value)) return value === 0
 
-	if (is_date(value)) return isNaN(value)
+	if (isDate(value)) return isNaN(value.getTime())
 
-	if (is_function(value)) return false
+	if (isFunction(value)) return false
 
-	if (is_symbol(value)) return false
+	if (isSymbol(value)) return false
 
 	const length = (value as any).length
 
-	if (is_number(length)) return length === 0
+	if (isNumber(length)) return length === 0
 
 	const size = (value as any).size
 
-	if (is_number(size)) return size === 0
+	if (isNumber(size)) return size === 0
 
 	const keys = Object.keys(value).length
 
 	return keys === 0
 }
 
-export function is_equal<T, U>(x: T, y: U): boolean {
+/**
+ * check if the two values are equal
+ *
+ * @param x - The first value to check
+ *
+ * @param y - The second value to check
+ *
+ * @returns Whether the two values are equal or not
+ */
+export function isEqual<T, U>(x: T, y: U): boolean {
 	if (Object.is(x, y)) return true
 
 	if (x instanceof Date && y instanceof Date)
@@ -114,17 +176,17 @@ export function is_equal<T, U>(x: T, y: U): boolean {
 		return false
 	}
 
-	const keys_x = Reflect.ownKeys(x as unknown as object)
+	const keysX = Reflect.ownKeys(x as unknown as object)
 
-	const keys_y = Reflect.ownKeys(y as unknown as object)
+	const keysY = Reflect.ownKeys(y as unknown as object)
 
-	if (keys_x.length !== keys_y.length) return false
+	if (keysX.length !== keysY.length) return false
 
-	for (let i = 0; i < keys_x.length; i++) {
-		if (!Reflect.has(y as unknown as object, keys_x[i])) return false
+	for (let i = 0; i < keysX.length; i++) {
+		if (!Reflect.has(y as unknown as object, keysX[i])) return false
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		//   @ts-ignore
-		if (!is_equal(x[keys_x[i]], y[keys_x[i]])) return false
+		if (!isEqual(x[keysX[i]], y[keysX[i]])) return false
 	}
 	return true
 }

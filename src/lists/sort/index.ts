@@ -7,6 +7,12 @@ import type { Dict } from "../../utils"
  *
  * @param key - The key to sort by.
  *
+ * @example
+ * ```ts
+ * sort([{ a: 1 }, { a: 2 }], "a") // [{ a: 1 }, { a: 2 }]
+ * sort([{ a: 1 }, { a: 2 }], "-a") // [{ a: 2 }, { a: 1 }]
+ * ```
+ *
  * @returns The sorted list.
  */
 export function sort<T extends Dict>(list: T[], key: string) {

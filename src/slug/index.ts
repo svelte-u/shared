@@ -5,6 +5,21 @@ import type { SlugOptions } from "../utils"
  * Returns a random slug.
  *
  * @param options - The options.
+ * - `lower` - Whether to include lowercase letters. Defaults to `true`.
+ * - `upper` - Whether to include uppercase letters. Defaults to `true`.
+ * - `digits` - Whether to include digits. Defaults to `true`.
+ * - `size` - The size of the slug. Defaults to `6`.
+ * - `prefix` - The prefix to use.
+ *
+ * @example
+ * ```ts
+ * slug() // "BcDeF1"
+ * slug({ lower: false }) // "E1F2G3"
+ * slug({ upper: false }) // "a1b2c3"
+ * slug({ digits: false }) // "aBcDeF"
+ * slug({ size: 10 }) // "aBcDeFgHiJ"
+ * slug({ prefix: "test" }) // "test-aBcDeF"
+ * ```
  *
  * @returns A random slug.
  */

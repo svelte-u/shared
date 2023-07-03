@@ -1,8 +1,8 @@
 import type { Readable } from "svelte/store"
 
-import { intervalfn } from "../intervalfn"
-import { to_readable } from "../to_readable"
-import { to_writable } from "../to_writable"
+import { intervalFn } from "../intervalFn"
+import { toWritable } from "../utils"
+import { toReadable } from "../utils"
 import type { RTFOptions } from "../utils"
 
 /**
@@ -55,9 +55,21 @@ function format(_rtf: Intl.RelativeTimeFormat, time: number): string {
  * @param date - The date to format.
  *
  * @param options - The options to use.
- * - locale - The locale to use.
- * - style - The length of the internationalized message.
- * - numeric - The format of output message.
+ * - `locale` - The locale to use.
+ * - `style` - The length of the internationalized message.
+ * - `numeric` - The format of output message.
+ * - `interval` - The interval to update the time. Defaults to 60 seconds.
+ *
+ * @example
+ * ```ts
+ * rtf(new Date()) // "in 1 minute"
+ *
+ * rtf(new Date(Date.now() - 1000 * 60 * 60 * 24)) // "1 day ago"
+ *
+ * rtf(new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), {
+ * 	locale: "ar",
+ * }) // "بعد سنة"
+ * ```
  *
  * @returns The relative time string.
  */
@@ -65,7 +77,12 @@ export function rtf(
 	date: Date | number,
 	options: RTFOptions = {}
 ): Readable<string> {
-	const { locale = "en", style = "long", numeric = "auto" } = options
+	const {
+		locale = "en",
+		style = "long",
+		numeric = "auto",
+		interval = 60,
+	} = options
 
 	const _rtf = new Intl.RelativeTimeFormat(locale, {
 		style,
@@ -74,9 +91,9 @@ export function rtf(
 
 	const time = typeof date === "number" ? date : date.getTime()
 
-	const formatted = to_writable(format(_rtf, time))
+	const formatted = toWritable(format(_rtf, time))
 
-	intervalfn(() => formatted.set(format(_rtf, time)), 60)
+	intervalFn(() => formatted.set(format(_rtf, time)), interval)
 
-	return to_readable(formatted)
+	return toReadable(formatted)
 }

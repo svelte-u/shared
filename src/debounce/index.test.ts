@@ -28,7 +28,7 @@ describe("debounce", () => {
 				result = a + b
 			},
 			1,
-			{ max_wait: 2 }
+			{ maxWait: 2 }
 		)
 
 		sum_debounce(1, 2)
@@ -50,7 +50,7 @@ describe("debounce", () => {
 				result = a + b
 			},
 			4,
-			{ max_wait: 2 }
+			{ maxWait: 2 }
 		)
 
 		sum_debounce(1, 2)

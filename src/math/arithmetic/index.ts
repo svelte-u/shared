@@ -1,10 +1,18 @@
-import { to_number } from "../../to_number"
+import { toNumber } from "../../toNumber"
 import type { Sequential } from "../../utils"
 
 /**
  * Sums all the numbers in given sequences.
  *
  * @param args - The sequences to sum.
+ *
+ * @example
+ * ```ts
+ * sum(1, 2, 3) // 6
+ * sum([1, 2, 3]) // 6
+ * sum([1, 2], 3) // 6
+ * sum(1, [2, 3]) // 6
+ * ```
  *
  * @returns The sum of all the numbers in given sequences.
  */
@@ -14,10 +22,10 @@ export function sum(...args: Sequential): number {
 	for (const arg of args) {
 		if (Array.isArray(arg)) {
 			for (const item of arg) {
-				result += to_number(item)
+				result += toNumber(item)
 			}
 		} else {
-			result += to_number(arg)
+			result += toNumber(arg)
 		}
 	}
 
@@ -29,6 +37,14 @@ export function sum(...args: Sequential): number {
  *
  * @param args - The sequences to subtract.
  *
+ * @example
+ * ```ts
+ * subtract(1, 2, 3) // -4
+ * subtract([1, 2, 3]) // -4
+ * subtract([1, 2], 3) // -4
+ * subtract(1, [2, 3]) // -4
+ * ```
+ *
  * @returns The subtraction of all the numbers in given sequences.
  */
 export function subtract(...args: Sequential): number {
@@ -36,12 +52,12 @@ export function subtract(...args: Sequential): number {
 	for (const arg of args) {
 		if (Array.isArray(arg)) {
 			for (const item of arg) {
-				if (result === 0) result = to_number(item)
-				else result -= to_number(item)
+				if (result === 0) result = toNumber(item)
+				else result -= toNumber(item)
 			}
 		} else {
-			if (result === 0) result = to_number(arg)
-			else result -= to_number(arg)
+			if (result === 0) result = toNumber(arg)
+			else result -= toNumber(arg)
 		}
 	}
 
@@ -53,6 +69,14 @@ export function subtract(...args: Sequential): number {
  *
  * @param args - The sequences to multiply.
  *
+ * @example
+ * ```ts
+ * multiply(1, 2, 3) // 6
+ * multiply([1, 2, 3]) // 6
+ * multiply([1, 2], 3) // 6
+ * multiply(1, [2, 3]) // 6
+ * ```
+ *
  * @returns The multiplication of all the numbers in given sequences.
  */
 export function multiply(...args: Sequential): number {
@@ -61,10 +85,10 @@ export function multiply(...args: Sequential): number {
 	for (const arg of args) {
 		if (Array.isArray(arg)) {
 			for (const item of arg) {
-				result *= to_number(item)
+				result *= toNumber(item)
 			}
 		} else {
-			result *= to_number(arg)
+			result *= toNumber(arg)
 		}
 	}
 
@@ -76,6 +100,14 @@ export function multiply(...args: Sequential): number {
  *
  * @param args - The sequences to divide.
  *
+ * @example
+ * ```ts
+ * divide(1, 2, 3) // 0.16666666666666666
+ * divide([1, 2, 3]) // 0.16666666666666666
+ * divide([1, 2], 3) // 0.16666666666666666
+ * divide(1, [2, 3]) // 0.16666666666666666
+ * ```
+ *
  * @returns The division of all the numbers in given sequences.
  */
 export function divide(...args: Sequential): number {
@@ -84,14 +116,14 @@ export function divide(...args: Sequential): number {
 	for (const arg of args) {
 		if (Array.isArray(arg)) {
 			for (const item of arg) {
-				if (result === undefined) result = to_number(item)
+				if (result === undefined) result = toNumber(item)
 				else {
-					result /= to_number(item)
+					result /= toNumber(item)
 				}
 			}
 		} else {
-			if (result === undefined) result = to_number(arg)
-			else result /= to_number(arg)
+			if (result === undefined) result = toNumber(arg)
+			else result /= toNumber(arg)
 		}
 	}
 
@@ -104,6 +136,14 @@ export function divide(...args: Sequential): number {
  *
  * @param args - The sequences to calculate the average.
  *
+ * @example
+ * ```ts
+ * average(1, 2, 3) // 2
+ * average([1, 2, 3]) // 2
+ * average([1, 2], 3) // 2
+ * average(1, [2, 3]) // 2
+ * ```
+ *
  * @returns The average of all the numbers in given sequences.
  */
 export function average(...args: Sequential): number {
@@ -115,6 +155,14 @@ export function average(...args: Sequential): number {
  *
  * @param args - The sequences to get the maximum number.
  *
+ * @example
+ * ```ts
+ * max(1, 2, 3) // 3
+ * max([1, 2, 3]) // 3
+ * max([1, 2], 3) // 3
+ * max(1, [2, 3]) // 3
+ * ```
+ *
  * @returns The maximum number of sequences
  */
 export function max(...args: Sequential): number {
@@ -123,10 +171,10 @@ export function max(...args: Sequential): number {
 	for (const arg of args) {
 		if (Array.isArray(arg)) {
 			for (const item of arg) {
-				result = Math.max(result, to_number(item))
+				result = Math.max(result, toNumber(item))
 			}
 		} else {
-			result = Math.max(result, to_number(arg))
+			result = Math.max(result, toNumber(arg))
 		}
 	}
 
@@ -138,6 +186,14 @@ export function max(...args: Sequential): number {
  *
  * @param args - The sequences to get the minimum number.
  *
+ * @example
+ * ```ts
+ * min(1, 2, 3) // 1
+ * min([1, 2, 3]) // 1
+ * min([1, 2], 3) // 1
+ * min(1, [2, 3]) // 1
+ * ```
+ *
  * @returns The minimum number of sequences
  */
 export function min(...args: Sequential): number {
@@ -146,10 +202,10 @@ export function min(...args: Sequential): number {
 	for (const arg of args) {
 		if (Array.isArray(arg)) {
 			for (const item of arg) {
-				result = Math.min(result, to_number(item))
+				result = Math.min(result, toNumber(item))
 			}
 		} else {
-			result = Math.min(result, to_number(arg))
+			result = Math.min(result, toNumber(arg))
 		}
 	}
 

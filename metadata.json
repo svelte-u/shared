@@ -1,5 +1,5 @@
 {
-    "total": 55,
+    "total": 46,
     "packages": {
         "curry": [
             "chain",
@@ -35,18 +35,15 @@
             "random"
         ],
         "index": [
-            "adjust_with_unit",
-            "async_state",
-            "create_event_hook",
-            "create_singleton_promise",
+            "adjustWithUnit",
+            "asyncState",
+            "createEventHook",
             "debounce",
-            "intervalfn",
-            "last_changed",
+            "intervalFn",
+            "lastChanged",
             "len",
-            "make_destructurable",
-            "object_url",
-            "on_destroy",
-            "on_mount",
+            "makeDestructurable",
+            "objectUrl",
             "range",
             "rtf",
             "sleep",
@@ -55,15 +52,9 @@
             "taggable",
             "template",
             "throttle",
-            "timeout",
-            "timeoutfn",
-            "to_number",
-            "to_readable",
-            "to_writable",
+            "timeoutFn",
+            "toNumber",
             "tryit",
-            "type",
-            "unstore",
-            "utils",
             "watchable"
         ]
     }

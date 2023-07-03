@@ -10,6 +10,10 @@ import type { IntersectsOptions } from "../../utils"
  * @param options - options:
  * - `fn` - A function that returns a unique key for each item in the array.
  *
+ * @example
+ * ```ts
+ * intersects([1, 2, 3], [2, 3, 4]) // [true, [2, 3]]
+ * ```
  * @returns a boolean value indicating whether the arrays intersect and the intersecting items.
  */
 export function intersects<T, K extends string | number | symbol>(

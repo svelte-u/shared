@@ -88,7 +88,7 @@ describe("enhance", () => {
 	})
 
 	it("should create a dict from keys", () => {
-		const dict = enhance({}).from_keys(["foo", "bar"], "baz")
+		const dict = enhance({}).fromKeys(["foo", "bar"], "baz")
 
 		expect(get(dict)).toEqual({ foo: "baz", bar: "baz" })
 	})

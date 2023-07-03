@@ -44,13 +44,22 @@ export type AnyFn = (...args: any[]) => any
 
 export type Awaitable<T> = Promise<T> | T
 
+export type ListAble<T> = T[] | T
+
 export type ArgumentsType<T> = T extends (...args: infer U) => any ? U : never
+
+export type Mutable<T> = { -readonly [P in keyof T]: T[P] }
+
+export type Dict<
+	T extends string | number | symbol = string | number | symbol,
+	U = any
+> = Record<T, U>
 
 export type PromisifyFn<T extends AnyFn> = (
 	...args: ArgumentsType<T>
 ) => Promise<ReturnType<T>>
 
-export interface Stoppable {
+export interface Stoppable<StartFnArgs extends any[] = any[]> {
 	/**A an indicate whether a stoppable instance is executing*/
 	pending: Readable<boolean>
 
@@ -58,7 +67,7 @@ export interface Stoppable {
 	stop: Fn
 
 	/**Start the effect*/
-	start: Fn
+	start: (...args: StartFnArgs) => void
 }
 
 export interface Pauseable {
@@ -93,7 +102,7 @@ export interface FunctionWrapperOptions<
 > {
 	fn: FunctionArgs<Args, This>
 	args: Args
-	this_arg: This
+	thisArg: This
 }
 
 export type EventFilter<
@@ -110,7 +119,7 @@ export interface ConfigurableEventFilter {
 	 * Filter for if events should to be received.
 	 *
 	 */
-	event_filter?: EventFilter
+	eventFilter?: EventFilter
 }
 
 export interface DebounceFilterOptions {
@@ -118,14 +127,14 @@ export interface DebounceFilterOptions {
 	 * The maximum time allowed to be delayed before it's invoked.
 	 * In seconds.
 	 */
-	max_wait?: number
+	maxWait?: number
 
 	/**
 	 * Whether to reject the last call if it's been cancel.
 	 *
 	 * @defaultValue false
 	 */
-	reject_on_cancel?: boolean
+	rejectOnCancel?: boolean
 }
 
 export interface ToNumberOptions {
@@ -137,8 +146,8 @@ export interface ToNumberOptions {
 	method?: "float" | "int"
 
 	/**
-	 * The base in mathematical numeral systems passed to `parseInt`.
-	 * Only works with `method: 'parseInt'`
+	 * The base in mathematical numeral systems passed to `int`.
+	 * Only works with `method: 'int'`
 	 */
 	radix?: number
 
@@ -147,7 +156,7 @@ export interface ToNumberOptions {
 	 *
 	 * @defaultValue false
 	 */
-	nan_to_zero?: boolean
+	nanToZero?: boolean
 }
 
 export interface SlugOptions {
@@ -224,7 +233,7 @@ export interface IntervalFnOptions {
 	 *
 	 * @defaultValue false
 	 */
-	immediate_callback?: boolean
+	immediateCallback?: boolean
 }
 
 export interface TimeoutFnOptions {
@@ -234,6 +243,13 @@ export interface TimeoutFnOptions {
 	 * @defaultValue true
 	 */
 	immediate?: boolean
+
+	/**
+	 * Execute the callback immediate after calling this function
+	 *
+	 * @defaultValue false
+	 */
+	immediateCallback?: boolean
 }
 
 export interface TimeoutOptions<Controls extends boolean>
@@ -277,6 +293,13 @@ export interface RTFOptions {
 	 * @defaultValue auto
 	 */
 	numeric?: "always" | "auto"
+
+	/**
+	 * The interval to update the time.
+	 *
+	 * @defaultValue 60 second
+	 */
+	interval?: number
 }
 
 export type DateLike = Date | number | string | undefined
@@ -309,8 +332,6 @@ export interface PrecisionOptions {
 	math?: "floor" | "ceil" | "round"
 }
 
-export type Dict = Record<string | number | symbol, any>
-
 export interface ClusterOptions {
 	/**
 	 * The size of each list.
@@ -338,7 +359,7 @@ export interface EnhanceSortOptions {
 	 * @defaultValue if sort_by isn't provided, it will sort by the first key
 	 
 	*/
-	sort_by?: string
+	sortBy?: string
 
 	/**
 	 * Reverse the sorting
@@ -350,7 +371,7 @@ export interface EnhanceSortOptions {
 	reverse?: boolean
 }
 
-export interface AsyncStateOptions {
+export interface AsyncStateOptions<D = any> {
 	/**
 	 * Delay for executing the promise. In second.
 	 *
@@ -371,7 +392,13 @@ export interface AsyncStateOptions {
 	/**
 	 * Callback when error is caught.
 	 */
-	on_error?: (e: unknown) => void
+	onError?: (e: unknown) => void
+
+	/**
+	 * Callback when success is caught.
+	 * @param data - The data returned by the promise
+	 */
+	onSuccess?: (data: D) => void
 
 	/**
 	 * Sets the state to initial state before executing the promise.
@@ -382,7 +409,7 @@ export interface AsyncStateOptions {
 	 *
 	 * @defaultValue true
 	 */
-	reset_on_execute?: boolean
+	resetOnExecute?: boolean
 
 	/**
 	 *
@@ -390,7 +417,7 @@ export interface AsyncStateOptions {
 	 *
 	 * @defaultValue false
 	 */
-	throw_error?: boolean
+	throwError?: boolean
 }
 
 export interface Watchable<T> extends PartialWritable<T> {
@@ -411,10 +438,10 @@ export interface CycleOptions<T> {
 	/**
 	 * The default index when
 	 */
-	fallback_index?: number
+	fallbackIndex?: number
 
 	/**
 	 * Custom function to get the index of the current value.
 	 */
-	get_index?: (value: T, list: T[]) => number
+	getIndex?: (value: T, list: T[]) => number
 }

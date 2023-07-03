@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vitest } from "vitest"
 
 import { rtf } from "."
-import { unstore } from "../unstore"
+import { unstore } from "../utils"
 
 describe("rtf", () => {
 	beforeEach(() => {

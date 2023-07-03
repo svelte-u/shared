@@ -7,6 +7,14 @@
  *
  * @param fn - A function that returns a unique key for each item in the array.
  *
+ * @example
+ * ```ts
+ * merge(
+ * 	[{ id: 1, name: "a" }, { id: 2, name: "b" }],
+ * 	[{ id: 1, name: "c" }, { id: 3, name: "d" }],
+ * 	(item) => item.id
+ * ) // [{ id: 1, name: "c" }, { id: 2, name: "b" }, { id: 3, name: "d" }]
+ * ```
  * @returns a new list with the second list merged into the first list.
  */
 export function merge<T, K extends string | number | symbol>(
@@ -22,8 +30,14 @@ export function merge<T, K extends string | number | symbol>(
 
 	if (!fn) return list
 
-	return list.reduce((acc, r) => {
-		const matched = other.find((o) => fn(r) === fn(o))
-		return matched ? [...acc, matched] : [...acc, r]
-	}, [] as T[])
+	const merged = [...list]
+
+	for (const item of other) {
+		const matched = merged.find((o) => fn(o) === fn(item))
+
+		if (matched) Object.assign(matched, item)
+		else merged.push(item)
+	}
+
+	return merged
 }

@@ -1,5 +1,5 @@
-import { create_filter_wrapper, throttle_filter } from "../utils"
-import type { FunctionArgs } from "../utils"
+import { createFilterWrapper, throttleFilter } from "../utils"
+import type { FunctionArgs, PromisifyFn } from "../utils"
 
 /**
  * Throttle execution of a function. Especially useful for rate limiting
@@ -13,13 +13,34 @@ import type { FunctionArgs } from "../utils"
  *
  * @param leading - if true, call fn on the leading edge of the s timeout
  *
- * @returns A new debounce function.
+ * @param rejectOnCancel - Whether to reject the promise if the function is cancelled.
+ *
+ * @example
+ * ```ts
+ * const fn = throttle(() => console.log("Hello World"), 1)
+ *
+ * fn() // "Hello World"
+ *
+ * fn() // Nothing
+ *
+ * await sleep(1)
+ *
+ * fn() // "Hello World"
+ *
+ * fn()	// Nothing
+ * ```
+ *
+ * @returns A new throttled function.
  */
 export function throttle<T extends FunctionArgs>(
 	fn: T,
 	s = 0.2,
 	trailing = false,
-	leading = true
-): T {
-	return create_filter_wrapper(throttle_filter(s, trailing, leading), fn)
+	leading = true,
+	rejectOnCancel = false
+): PromisifyFn<T> {
+	return createFilterWrapper(
+		throttleFilter(s, trailing, leading, rejectOnCancel),
+		fn
+	)
 }

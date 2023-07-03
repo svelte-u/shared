@@ -35,7 +35,6 @@ The key features are:
 pnpm add -D @sveu/shared
 ```
 
-
 ## 🧪 Example
 
 ```svelte

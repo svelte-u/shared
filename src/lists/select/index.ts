@@ -7,6 +7,11 @@
  *
  * @param condition - The condition to filter the list by
  *
+ * @example
+ * ```ts
+ * select([{ a: 1 }, { a: 2 }, { a: 3 }], (item) => item.a) // [1, 2, 3]
+ * ```
+ *
  * @returns The list of values
  */
 export function select<T, K>(

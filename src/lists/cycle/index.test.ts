@@ -3,7 +3,7 @@ import { readable, writable } from "svelte/store"
 import { describe, expect, it } from "vitest"
 
 import { cycle } from "."
-import { unstore } from "../../unstore"
+import { unstore } from "../../utils"
 
 describe("cycle", () => {
 	it("should work with array", () => {

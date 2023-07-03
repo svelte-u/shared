@@ -159,7 +159,7 @@ describe("enhance", () => {
 
 		const list = enhance(users_fullname)
 
-		list.sort({ type: "object", sort_by: "surname" })
+		list.sort({ type: "object", sortBy: "surname" })
 
 		expect(get(list)).toEqual([
 			{ name: "john", surname: "doe" },
@@ -167,7 +167,7 @@ describe("enhance", () => {
 			{ name: "erza", surname: "scarlet" },
 		])
 
-		list.sort({ type: "object", sort_by: "name" })
+		list.sort({ type: "object", sortBy: "name" })
 
 		expect(get(list)).toEqual([
 			{ name: "erza", surname: "scarlet" },
@@ -175,7 +175,7 @@ describe("enhance", () => {
 			{ name: "john", surname: "doe" },
 		])
 
-		list.sort({ type: "object", sort_by: "surname", reverse: true })
+		list.sort({ type: "object", sortBy: "surname", reverse: true })
 
 		expect(get(list)).toEqual([
 			{ name: "erza", surname: "scarlet" },
@@ -183,7 +183,7 @@ describe("enhance", () => {
 			{ name: "john", surname: "doe" },
 		])
 
-		list.sort({ type: "object", sort_by: "name", reverse: true })
+		list.sort({ type: "object", sortBy: "name", reverse: true })
 
 		expect(get(list)).toEqual([
 			{ name: "john", surname: "doe" },

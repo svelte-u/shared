@@ -4,24 +4,15 @@ import { describe, expect, it } from "vitest"
 
 import {
 	browser,
-	is_array,
-	is_boolean,
-	is_date,
-	is_empty,
-	is_equal,
-	is_function,
-	is_number,
-	is_object,
-	is_partial_writable,
-	is_readable,
-	is_readable_only,
-	is_set,
-	is_store,
-	is_string,
-	is_symbol,
-	is_window,
-	is_writable,
-	is_ws,
+	isEmpty,
+	isEqual,
+	isFunction,
+	isPartialWritable,
+	isReadable,
+	isReadableOnly,
+	isStore,
+	isWritable,
+	isWs,
 } from "."
 
 describe("utils/is", () => {
@@ -30,176 +21,130 @@ describe("utils/is", () => {
 	})
 
 	it("shouldn't be a websocket", () => {
-		expect(is_ws).toBeFalsy()
-	})
-
-	it("should be a set", () => {
-		expect(is_set(new Set())).toBeTruthy()
-	})
-
-	it("should be a boolean", () => {
-		expect(is_boolean(true)).toBeTruthy()
-
-		expect(is_boolean(false)).toBeTruthy()
-
-		expect(is_boolean(0)).toBeFalsy()
-
-		expect(is_boolean(1)).toBeFalsy()
-
-		expect(is_boolean("")).toBeFalsy()
-
-		expect(is_boolean("true")).toBeFalsy()
-
-		expect(is_boolean("false")).toBeFalsy()
-
-		expect(is_boolean(null)).toBeFalsy()
+		expect(isWs).toBeFalsy()
 	})
 
 	it("should be a function", () => {
 		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		expect(is_function(() => {})).toBeTruthy()
+		expect(isFunction(() => {})).toBeTruthy()
 
 		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		expect(is_function(function () {})).toBeTruthy()
+		expect(isFunction(function () {})).toBeTruthy()
 
-		expect(is_function("")).toBeFalsy()
+		expect(isFunction("")).toBeFalsy()
 
-		expect(is_function(0)).toBeFalsy()
+		expect(isFunction(0)).toBeFalsy()
 
-		expect(is_function(null)).toBeFalsy()
-	})
-
-	it("should be a number", () => {
-		expect(is_number(0)).toBeTruthy()
-
-		expect(is_number(1)).toBeTruthy()
-
-		expect(is_number(3.14)).toBeTruthy()
-
-		expect(is_number("")).toBeFalsy()
-
-		expect(is_number(null)).toBeFalsy()
-	})
-
-	it("should be a string", () => {
-		expect(is_string("")).toBeTruthy()
-
-		expect(is_string("hello")).toBeTruthy()
-
-		expect(is_string(0)).toBeFalsy()
-
-		expect(is_string(null)).toBeFalsy()
-	})
-
-	it("should be an object", () => {
-		expect(is_object({})).toBeTruthy()
-
-		expect(is_object({ foo: "bar" })).toBeTruthy()
-
-		expect(is_object([])).toBeFalsy()
-
-		expect(is_object(null)).toBeFalsy()
-	})
-
-	it("should be an array", () => {
-		expect(is_array([])).toBeTruthy()
-
-		expect(is_array([1, 2, 3])).toBeTruthy()
-
-		expect(is_array({})).toBeFalsy()
-
-		expect(is_array(null)).toBeFalsy()
-	})
-
-	it("should be a date", () => {
-		expect(is_date(new Date())).toBeTruthy()
-
-		expect(is_date(new Date(0))).toBeTruthy()
-
-		expect(is_date({})).toBeFalsy()
-
-		expect(is_date(null)).toBeFalsy()
-	})
-
-	it("should be a symbol", () => {
-		expect(is_symbol(Symbol())).toBeTruthy()
-
-		expect(is_symbol(Symbol("foo"))).toBeTruthy()
-
-		expect(is_symbol({})).toBeFalsy()
-
-		expect(is_symbol(null)).toBeFalsy()
-	})
-
-	it("shouldn't be a window", () => {
-		expect(is_window({})).toBeFalsy()
-
-		expect(is_window(null)).toBeFalsy()
+		expect(isFunction(null)).toBeFalsy()
 	})
 
 	it("should be a readable", () => {
-		expect(is_readable(readable(1))).toBeTruthy()
+		expect(isReadable(readable(1))).toBeTruthy()
 
-		expect(is_readable(writable(1))).toBeTruthy()
+		expect(isReadable(writable(1))).toBeTruthy()
 	})
 
 	it("should be a writable", () => {
-		expect(is_writable(writable(1))).toBeTruthy()
+		function customWritable() {
+			const { subscribe, set } = writable(1)
 
-		expect(is_writable(readable(1))).toBeFalsy()
+			return {
+				subscribe,
+				set,
+			}
+		}
+
+		expect(isWritable(writable(1))).toBeTruthy()
+
+		expect(isWritable(readable(1))).toBeFalsy()
+
+		expect(isWritable(customWritable())).toBeFalsy()
 	})
 
 	it("should be a partial writable", () => {
-		expect(is_partial_writable(writable(1))).toBeTruthy()
+		function customWritable() {
+			const { subscribe, set } = writable(1)
 
-		expect(is_partial_writable(readable(1))).toBeFalsy()
+			return {
+				subscribe,
+				set,
+			}
+		}
+
+		expect(isPartialWritable(writable(1))).toBeTruthy()
+
+		expect(isPartialWritable(readable(1))).toBeFalsy()
+
+		expect(isPartialWritable(customWritable())).toBeTruthy()
 	})
 
 	it("should be a readable only", () => {
-		expect(is_readable_only(readable(1))).toBeTruthy()
+		function customWritable() {
+			const { subscribe, set } = writable(1)
 
-		expect(is_readable_only(writable(1))).toBeFalsy()
+			return {
+				subscribe,
+				set,
+			}
+		}
+
+		expect(isReadableOnly(readable(1))).toBeTruthy()
+
+		expect(isReadableOnly(writable(1))).toBeFalsy()
+
+		expect(isReadableOnly(customWritable())).toBeFalsy()
 	})
 
 	it("should be a store", () => {
-		expect(is_store(readable(1))).toBeTruthy()
+		function customWritable() {
+			const { subscribe, set } = writable(1)
 
-		expect(is_store(writable(1))).toBeTruthy()
+			return {
+				subscribe,
+				set,
+			}
+		}
 
-		expect(is_store({})).toBeFalsy()
+		expect(isStore(readable(1))).toBeTruthy()
 
-		expect(is_store(null)).toBeFalsy()
+		expect(isStore(writable(1))).toBeTruthy()
+
+		expect(isStore({})).toBeFalsy()
+
+		expect(isStore(null)).toBeFalsy()
+
+		expect(isStore(customWritable())).toBeTruthy()
 	})
 
 	it("should be empty", () => {
-		expect(is_empty("")).toBeTruthy()
+		expect(isEmpty("")).toBeTruthy()
 
-		expect(is_empty([])).toBeTruthy()
+		expect(isEmpty([])).toBeTruthy()
 
-		expect(is_empty({})).toBeTruthy()
+		expect(isEmpty({})).toBeTruthy()
 
-		expect(is_empty(new Set())).toBeTruthy()
+		expect(isEmpty(new Set())).toBeTruthy()
 
-		expect(is_empty(new Map())).toBeTruthy()
+		expect(isEmpty(new Map())).toBeTruthy()
 
-		expect(is_empty(new Date())).toBeFalsy()
+		expect(isEmpty(new Date())).toBeFalsy()
 	})
 
 	it("should be equal", () => {
-		expect(is_equal(1, 1)).toBeTruthy()
+		expect(isEqual(1, 1)).toBeTruthy()
 
-		expect(is_equal(1, 2)).toBeFalsy()
+		expect(isEqual(1, 2)).toBeFalsy()
 
-		expect(is_equal("foo", "foo")).toBeTruthy()
+		expect(isEqual("foo", "foo")).toBeTruthy()
 
-		expect(is_equal("foo", "bar")).toBeFalsy()
+		expect(isEqual("foo", "bar")).toBeFalsy()
 
-		expect(is_equal([1, 2, 3], [1, 2, 3])).toBeTruthy()
+		expect(isEqual([1, 2, 3], [1, 2, 3])).toBeTruthy()
 
-		expect(is_equal([1, 2, 3], [1, 2, 4])).toBeFalsy()
+		expect(isEqual([1, 2, 3], [1, 2, 4])).toBeFalsy()
 
-		expect(is_equal({ foo: "bar" }, { foo: "bar" })).toBeTruthy()
+		expect(isEqual({ foo: "bar" }, { foo: "bar" })).toBeTruthy()
 
-		expect(is_equal({ foo: "bar" }, { foo: "baz" })).toBeFalsy()
+		expect(isEqual({ foo: "bar" }, { foo: "baz" })).toBeFalsy()
 	})
 })

@@ -1,7 +1,7 @@
 import { len } from "../../len"
-import { to_readable } from "../../to_readable"
-import { to_writable } from "../../to_writable"
-import { unstore } from "../../unstore"
+import { toWritable } from "../../utils"
+import { toReadable } from "../../utils"
+import { unstore } from "../../utils"
 import type { CycleOptions, MaybeStore } from "../../utils"
 import { watchable } from "../../watchable"
 
@@ -13,7 +13,16 @@ import { watchable } from "../../watchable"
  * @param options - The options for the cycle
  * - `fallback` - The initial value of the state.
  * - `fallback_index` - The default index when
- * - `get_index` - Custom function to get the index of the current value.
+ * - `getIndex` - Custom function to get the index of the current value.
+ *
+ * @example
+ * ```ts
+ * const { state, next, prev } = cycle(["a", "b", "c"])
+ * next() // "b"
+ * next() // "c"
+ * next() // "a"
+ * prev() // "c"
+ * ```
  *
  * @returns The state and the index
  * - `state` - The current value
@@ -37,14 +46,14 @@ export function cycle<T>(list: MaybeStore<T[]>, options?: CycleOptions<T>) {
 	 *
 	 * @returns The current index
 	 */
-	function get_index() {
+	function getIndex() {
 		const target_list = unstore(list)
 
-		let index = options?.get_index
-			? options.get_index(unstore(state), target_list)
+		let index = options?.getIndex
+			? options.getIndex(unstore(state), target_list)
 			: target_list.indexOf(unstore(state))
 
-		if (index < 0) index = options?.fallback_index ?? 0
+		if (index < 0) index = options?.fallbackIndex ?? 0
 
 		return index
 	}
@@ -79,7 +88,7 @@ export function cycle<T>(list: MaybeStore<T[]>, options?: CycleOptions<T>) {
 	 * @returns The value that was set
 	 */
 	function shift(delta = 1) {
-		const new_index = get_index() + delta
+		const new_index = getIndex() + delta
 
 		index.set(new_index)
 
@@ -110,17 +119,17 @@ export function cycle<T>(list: MaybeStore<T[]>, options?: CycleOptions<T>) {
 		return shift(-n)
 	}
 
-	const state = to_writable(get_fallback())
+	const state = toWritable(get_fallback())
 
-	const _list = to_writable(list)
+	const _list = toWritable(list)
 
 	const index = watchable<number>(0, (_, new_value) => {
 		set_value(new_value)
 	})
 
 	return {
-		state: to_readable(state),
-		index: to_readable(index),
+		state: toReadable(state),
+		index: toReadable(index),
 		next,
 		prev,
 	}

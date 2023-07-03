@@ -5,6 +5,7 @@ import type { FunctionArgs } from "../../utils"
  *
  * @param funcs - The list of functions to execute.
  *
+ *
  */
 export function chain(...funcs: FunctionArgs[]) {
 	return (...args: any[]) => {

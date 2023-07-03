@@ -9,6 +9,14 @@
  *
  * @see https://docs.python.org/3/library/functions.html#func-range
  *
+ * @example
+ * ```ts
+ * range(1, 5) // [1, 2, 3, 4, 5]
+ * range(1, 5, 2) // [1, 3, 5]
+ * range(5, 1, -1) // [5, 4, 3, 2, 1]
+ * range(10) // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10]
+ * ```
+ *
  * @returns An generator of numbers.
  */
 export function* range(

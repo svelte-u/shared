@@ -5,6 +5,11 @@
  *
  * @param fn - The function to determine field values
  *
+ * @example
+ * ```ts
+ * unique([1, 2, 2, 3, 4, 4, 5, 6, 6, 7], (item) => item) // [1, 2, 3, 4, 5, 6, 7]
+ * ```
+ *
  * @returns The new array of unique values.
  */
 export function unique<T, K extends string | number | symbol>(

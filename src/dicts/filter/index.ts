@@ -5,6 +5,11 @@
  *
  * @param filter - the filter function, if the function returns true, the value will be removed.
  *
+ * @example
+ * ```ts
+ * filter({ a: 1, b: 2, c: 3 }, (value) => value === 2) // { a: 1, c: 3 }
+ * ```
+ *
  * @returns the filtered object
  */
 export function filter<RemovedKeys extends string, T>(

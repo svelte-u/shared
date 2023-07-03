@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vitest } from "vitest"
 
-import { create_filter_wrapper, debounce_filter, throttle_filter } from "."
+import { createFilterWrapper, debounceFilter, throttleFilter } from "."
 
 describe("utils/filters", () => {
 	beforeEach(() => {
@@ -10,7 +10,7 @@ describe("utils/filters", () => {
 	it("should debounce", () => {
 		const spy = vitest.fn()
 
-		const filter = create_filter_wrapper(debounce_filter(1), spy)
+		const filter = createFilterWrapper(debounceFilter(1), spy)
 
 		setTimeout(filter, 200)
 
@@ -22,7 +22,7 @@ describe("utils/filters", () => {
 	it("should debounce twice", () => {
 		const spy = vitest.fn()
 
-		const filter = create_filter_wrapper(debounce_filter(0.5), spy)
+		const filter = createFilterWrapper(debounceFilter(0.5), spy)
 
 		setTimeout(filter, 500)
 
@@ -37,7 +37,7 @@ describe("utils/filters", () => {
 
 	it("should throttle", () => {
 		const spy = vitest.fn()
-		const filter = create_filter_wrapper(throttle_filter(1), spy)
+		const filter = createFilterWrapper(throttleFilter(1), spy)
 
 		setTimeout(filter, 500)
 		setTimeout(filter, 500)
@@ -51,7 +51,7 @@ describe("utils/filters", () => {
 
 	it("should throttle evenly", () => {
 		const spy = vitest.fn()
-		const filter = create_filter_wrapper(throttle_filter(1), spy)
+		const filter = createFilterWrapper(throttleFilter(1), spy)
 
 		setTimeout(() => filter(1), 500)
 
@@ -72,7 +72,7 @@ describe("utils/filters", () => {
 	it("should not duplicate single event", () => {
 		const spy = vitest.fn()
 
-		const filter = create_filter_wrapper(throttle_filter(1), spy)
+		const filter = createFilterWrapper(throttleFilter(1), spy)
 
 		setTimeout(filter, 500)
 

@@ -165,6 +165,17 @@ function parser(date: DateLike): Date {
  * @see https://docs.python.org/3/library/datetime.html#datetime.date.strftime
  *
  * @see  Format Codes: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+ *
+ * @example
+ * ```ts
+ * strftime(new Date(), "%Y-%m-%d") // 2021-01-01
+ *
+ * strftime(new Date(), "%Y-%m-%d", { locales: "en-US" }) // 2021-01-01
+ *
+ * strftime(new Date(), "%Y-%m-%d", { locales: "ar-EG" }) // ٢٠٢١-٠١-٠١
+ * ```
+ *
+ * @returns The formatted date string.
  */
 export function strftime(
 	date: DateLike,

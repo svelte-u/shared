@@ -1,4 +1,4 @@
-import { type } from "../type"
+import { type } from "../utils"
 
 /**
  * A function that returns the length of an item.
@@ -7,6 +7,22 @@ import { type } from "../type"
  *
  * @see https://docs.python.org/3/library/functions.html#len
  *
+ * @example
+ * ```ts
+ * len([1, 2, 3]) // 3
+ *
+ * len("hello") // 5
+ *
+ * len({ a: 1, b: 2 }) // 2
+ *
+ * len(new Set([1, 2, 3])) // 3
+ *
+ * len(new Map([["a", 1], ["b", 2]])) // 2
+ *
+ * len(1) // TypeError: len() argument must be a sequence or collection, not number
+ *
+ * len(null) // TypeError: len() argument must be a sequence or collection, not null
+ * ```
  * @returns The length of the item.
  */
 export function len<T>(item: T): number {
